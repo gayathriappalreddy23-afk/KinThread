@@ -1,0 +1,40 @@
+{% extends 'base_nav.html' %}
+{% load static %}
+
+{% block page_content %}
+<div class="dashboard-shell">
+  <section class="home-section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">We are here for you</p>
+        <h3 class="section-title">Contact KinThread</h3>
+      </div>
+    </div>
+
+    <div class="product-grid" style="grid-template-columns: 1.2fr 0.8fr; align-items:start;">
+      <div class="product-card" style="padding: 1.5rem;">
+        {% if submitted %}
+          <h4>Thanks for reaching out!</h4>
+          <p>Your message has been saved to the database and our team will contact you shortly.</p>
+        {% else %}
+          <form method="post" class="newsletter-form" style="display:flex; flex-direction:column; gap: 0.9rem;">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Your name" required>
+            <input type="email" name="email" placeholder="Your email" required>
+            <input type="text" name="subject" placeholder="Subject" required>
+            <textarea name="message" rows="5" placeholder="How can we help you?" required></textarea>
+            <button type="submit" class="btn-shop-now">Send Message</button>
+          </form>
+        {% endif %}
+      </div>
+
+      <div class="review-card" style="padding: 1.5rem;">
+        <h4>Reach us</h4>
+        <p><strong>Email:</strong> support@kinthread.com</p>
+        <p><strong>Phone:</strong> +1 (555) 012-3456</p>
+        <p><strong>Address:</strong> 12 Fashion Avenue, New York, NY</p>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

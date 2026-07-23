@@ -1,0 +1,62 @@
+{% extends 'base_nav.html' %}
+{% load static %}
+
+{% block page_content %}
+<div class="dashboard-shell">
+    <section class="hero-banner category-hero" style="background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 60%, #dc2626 100%);">
+        <div class="hero-content">
+            <p class="eyebrow" style="color: #fca5a5;">Elegance & Contemporary Style</p>
+            <h2>{{ page_title }}</h2>
+            <p>{{ page_intro }}</p>
+        </div>
+    </section>
+
+    <section class="home-section">
+        <form method="get" class="catalog-toolbar">
+            <div class="search-group">
+                <input type="text" name="q" value="{{ query }}" placeholder="Search women's collection...">
+                <button type="submit">Search</button>
+            </div>
+            <div class="filter-row">
+                <select name="brand">
+                    <option value="">All Brands</option>
+                    {% for b in brands %}
+                        <option value="{{ b.slug }}" {% if b.slug == brand %}selected{% endif %}>{{ b.name }}</option>
+                    {% endfor %}
+                </select>
+                <input type="number" step="0.01" name="min_price" value="{{ min_price }}" placeholder="Min $">
+                <input type="number" step="0.01" name="max_price" value="{{ max_price }}" placeholder="Max $">
+                <button type="submit" class="btn-primary compact">Filter</button>
+            </div>
+        </form>
+
+        <div class="product-grid">
+            {% for product in products %}
+            <article class="product-card">
+                <div class="img-wrapper">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                    {% elif product.image_url %}
+                        <img src="{{ product.image_url }}" alt="{{ product.title }}">
+                    {% else %}
+                        <img src="{% static 'images/cat_women.png' %}" alt="{{ product.title }}">
+                    {% endif %}
+                    <a href="{% url 'add-to-cart' product.id %}" class="btn-add-cart">Add to Cart</a>
+                </div>
+                <div class="product-info">
+                    <h4>{{ product.title }}</h4>
+                    <p class="price">${{ product.price }}</p>
+                    <p class="meta">{{ product.brand.name|default:'KinThread' }}</p>
+                </div>
+            </article>
+            {% empty %}
+            <div class="empty-state">
+                <h3>No women's products found</h3>
+                <p>Try clearing filters or search for another item.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}
+

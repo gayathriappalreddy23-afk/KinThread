@@ -1,0 +1,213 @@
+{% extends 'base_nav.html' %}
+{% load static %}
+
+{% block page_content %}
+<div class="dashboard-shell">
+{% if search_query %}
+<section class="home-section search-results-section">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Search</p>
+            <h3 class="section-title">Results for "{{ search_query }}"</h3>
+        </div>
+    </div>
+
+    <div class="product-grid">
+        {% for product in search_results %}
+        <div class="product-card">
+            <div class="img-wrapper">
+                <img src="{{ product.image_url }}" alt="{{ product.title }}">
+                <a href="{% url 'add-to-cart' product.id %}" class="btn-add-cart">Add to Cart</a>
+            </div>
+            <div class="product-info">
+                <h4>{{ product.title }}</h4>
+                <p class="price">${{ product.price }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p>No results found for "{{ search_query }}". Try another keyword.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<!-- Hero Banner -->
+<section class="hero-banner">
+    <img src="{% static 'images/hero_banner.png' %}" alt="Latest Fashion Collection" class="hero-bg">
+    <div class="hero-content">
+        <h2>Latest Fashion Collection</h2>
+        <p>Discover the new arrivals for the season. Elevate your everyday style.</p>
+        <a href="{% url 'men' %}" class="btn-shop-now" style="display:inline-block; text-decoration:none;">Shop Now</a>
+    </div>
+</section>
+
+<!-- Shop by Category -->
+<section class="home-section category-section">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Fresh edits</p>
+            <h3 class="section-title">Shop by Category</h3>
+        </div>
+        <a href="{% url 'men' %}" class="section-link">See all</a>
+    </div>
+    <div class="category-grid">
+        {% for category in categories %}
+        {% if category.slug == 'men' %}
+            <a href="{% url 'men' %}" class="category-card">
+                <img src="{% static 'images/cat_men.png' %}" alt="{{ category.name }}">
+                <div class="cat-overlay">{{ category.name }}</div>
+            </a>
+        {% elif category.slug == 'women' %}
+            <a href="{% url 'women' %}" class="category-card">
+                <img src="{% static 'images/cat_women.png' %}" alt="{{ category.name }}">
+                <div class="cat-overlay">{{ category.name }}</div>
+            </a>
+        {% elif category.slug == 'accessories' %}
+            <a href="{% url 'accessories' %}" class="category-card">
+                <img src="{% static 'images/carousel_3.png' %}" alt="{{ category.name }}">
+                <div class="cat-overlay">{{ category.name }}</div>
+            </a>
+        {% else %}
+            <a href="{% url 'category-page' category.slug %}" class="category-card">
+                <img src="{% static 'images/carousel_3.png' %}" alt="{{ category.name }}">
+                <div class="cat-overlay">{{ category.name }}</div>
+            </a>
+        {% endif %}
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Trending Products (Horizontal Scroll) -->
+<section class="home-section trending-section">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Most loved</p>
+            <h3 class="section-title">Trending Products</h3>
+        </div>
+        <a href="{% url 'search-products' %}" class="section-link">View offers</a>
+    </div>
+    <div class="product-scroll">
+        {% for product in trending_products %}
+        <div class="product-card">
+            <div class="img-wrapper">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                {% elif product.image_url %}
+                    <img src="{{ product.image_url }}" alt="{{ product.title }}">
+                {% else %}
+                    <img src="{% static 'images/hero_banner.png' %}" alt="{{ product.title }}">
+                {% endif %}
+                <a href="{% url 'add-to-cart' product.id %}" class="btn-add-cart">Add to Cart</a>
+            </div>
+            <div class="product-info">
+                <h4>{{ product.title }}</h4>
+                <p class="price">${{ product.price }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p>No trending products available.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Flash Sale -->
+<section class="home-section flash-sale">
+    <div class="flash-content">
+        <h2>Flash Sale!</h2>
+        <p>Up to 50% off on selected items.</p>
+        <div class="timer">
+            <span>12<small>h</small></span> :
+            <span>34<small>m</small></span> :
+            <span>59<small>s</small></span>
+        </div>
+        <a href="{% url 'men' %}" class="btn-shop-now" style="display:inline-block; text-decoration:none;">Grab Deals</a>
+    </div>
+</section>
+
+<!-- New Arrivals (Grid) -->
+<section class="home-section new-arrivals">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Latest drop</p>
+            <h3 class="section-title">New Arrivals</h3>
+        </div>
+        <a href="{% url 'search-products' %}" class="section-link">Explore</a>
+    </div>
+    <div class="product-grid">
+        {% for product in new_arrivals %}
+        <div class="product-card">
+            <div class="img-wrapper">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                {% elif product.image_url %}
+                    <img src="{{ product.image_url }}" alt="{{ product.title }}">
+                {% else %}
+                    <img src="{% static 'images/hero_banner.png' %}" alt="{{ product.title }}">
+                {% endif %}
+                <a href="{% url 'add-to-cart' product.id %}" class="btn-add-cart">Add to Cart</a>
+            </div>
+            <div class="product-info">
+                <h4>{{ product.title }}</h4>
+                <p class="price">${{ product.price }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p>No new arrivals available.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Featured Brands -->
+<section class="home-section brands-section">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Trusted labels</p>
+            <h3 class="section-title">Featured Brands</h3>
+        </div>
+    </div>
+    <div class="brands-marquee">
+        <span>Gucci</span> &bull; <span>Prada</span> &bull; <span>Zara</span> &bull; <span>H&M</span> &bull; <span>Nike</span> &bull; <span>Adidas</span> &bull; <span>Puma</span>
+    </div>
+</section>
+
+<!-- Customer Reviews -->
+<section class="home-section reviews-section">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Community love</p>
+            <h3 class="section-title">What Our Customers Say</h3>
+        </div>
+    </div>
+    <div class="reviews-grid">
+        <div class="review-card">
+            <p class="stars">★★★★★</p>
+            <p class="review-text">"Amazing quality! The clothes look exactly like the pictures."</p>
+            <p class="author">- Sarah J.</p>
+        </div>
+        <div class="review-card">
+            <p class="stars">★★★★★</p>
+            <p class="review-text">"Fast shipping and the material is top notch."</p>
+            <p class="author">- Michael T.</p>
+        </div>
+        <div class="review-card">
+            <p class="stars">★★★★☆</p>
+            <p class="review-text">"Great fit for the whole family. Will buy again!"</p>
+            <p class="author">- Emily R.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter -->
+<section class="home-section newsletter-section">
+    <div class="newsletter-content">
+        <h3>Join the KinThread Family</h3>
+        <p>Subscribe to get 15% off your first order.</p>
+        <form class="newsletter-form">
+            <input type="email" placeholder="Enter your email address" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+</section>
+
+</div>
+{% endblock %}

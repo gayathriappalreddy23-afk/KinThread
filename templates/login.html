@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-left">
+        <div class="carousel" id="imageCarousel">
+            <div class="carousel-track">
+                <img src="{% static 'images/carousel_1.png' %}" alt="Family fashion" class="carousel-img">
+                <img src="{% static 'images/carousel_2.png' %}" alt="Couple fashion" class="carousel-img">
+                <img src="{% static 'images/carousel_3.png' %}" alt="Friends fashion" class="carousel-img">
+                <img src="{% static 'images/carousel_1.png' %}" alt="Family fashion" class="carousel-img" aria-hidden="true">
+                <img src="{% static 'images/carousel_2.png' %}" alt="Couple fashion" class="carousel-img" aria-hidden="true">
+                <img src="{% static 'images/carousel_3.png' %}" alt="Friends fashion" class="carousel-img" aria-hidden="true">
+            </div>
+        </div>
+        <div class="auth-brand">
+            <h1>KinThread</h1>
+            <p>Style that brings us together.</p>
+        </div>
+    </div>
+    
+    <div class="auth-right">
+        <div class="auth-form-wrapper">
+            <div class="auth-toggle">
+                <button class="toggle-btn active" id="btn-login" onclick="toggleForm('login')">Login</button>
+                <button class="toggle-btn" id="btn-signup" onclick="toggleForm('signup')">Sign Up</button>
+            </div>
+            
+            <!-- Login Form -->
+            <div class="form-container active-form" id="login-form">
+                <h2>Welcome Back</h2>
+                <p class="subtitle">Please enter your details to sign in.</p>
+                <form action="{% url 'login' %}" method="POST" id="login-form-element">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <label for="login-email">Email Address</label>
+                        <input type="email" id="login-email" name="email" required placeholder="name@example.com">
+                    </div>
+                    <div class="input-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="password" required placeholder="••••••••">
+                    </div>
+                    <p id="login-error-message" class="form-error" style="display:none; margin-bottom:12px; color:#c0392b; font-size:0.95rem;"></p>
+                    <button type="submit" class="btn-primary">Log In</button>
+                </form>
+                
+                <div class="divider">
+                    <span>or continue with</span>
+                </div>
+                
+                <div class="social-login">
+                    <a href="{% url 'google_login' %}" class="btn-social" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:8px;">
+                        <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="Google" width="20"> Continue with Google
+                    </a>
+                    <button class="btn-social" type="button">
+                        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" alt="Facebook" width="20"> Facebook
+                    </button>
+                </div>
+            </div>
+
+            <!-- Signup Form -->
+            <div class="form-container hidden-form" id="signup-form">
+                <h2>Create an Account</h2>
+                <p class="subtitle">Join the KinThread family today.</p>
+                <form action="{% url 'signup' %}" method="POST" id="signup-form-element">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="first-name">First Name</label>
+                            <input type="text" id="first-name" name="first_name" required placeholder="John">
+                        </div>
+                        <div class="input-group">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" id="last-name" name="last_name" required placeholder="Doe">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="signup-email">Enter your Email</label>
+                        <input type="email" id="signup-email" name="email" required placeholder="name@example.com">
+                    </div>
+                    <div class="input-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" name="password" required placeholder="Create a password">
+                    </div>
+                    <div class="input-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" name="confirm_password" required placeholder="Confirm your password">
+                    </div>
+                    <p id="signup-error-message" class="form-error" style="display:none; margin-bottom:12px; color:#c0392b; font-size:0.95rem;"></p>
+                    <button type="submit" class="btn-primary">Create an Account</button>
+                </form>
+                
+                <div class="divider">
+                    <span>or continue with</span>
+                </div>
+                
+                <div class="social-login">
+                    <a href="{% url 'google_login' %}" class="btn-social" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:8px;">
+                        <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="Google" width="20"> Continue with Google
+                    </a>
+                    <button class="btn-social" type="button">
+                        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" alt="Facebook" width="20"> Facebook
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleForm(type) {
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const btnLogin = document.getElementById('btn-login');
+        const btnSignup = document.getElementById('btn-signup');
+
+        if (type === 'signup') {
+            loginForm.classList.remove('active-form');
+            loginForm.classList.add('hidden-form');
+            signupForm.classList.remove('hidden-form');
+            signupForm.classList.add('active-form');
+            
+            btnLogin.classList.remove('active');
+            btnSignup.classList.add('active');
+        } else {
+            signupForm.classList.remove('active-form');
+            signupForm.classList.add('hidden-form');
+            loginForm.classList.remove('hidden-form');
+            loginForm.classList.add('active-form');
+            
+            btnSignup.classList.remove('active');
+            btnLogin.classList.add('active');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const formType = urlParams.get('form');
+        if (formType === 'signup') {
+            toggleForm('signup');
+        }
+
+        const signupForm = document.getElementById('signup-form-element');
+        const loginForm = document.getElementById('login-form-element');
+        const firstNameInput = document.getElementById('first-name');
+        const emailInput = document.getElementById('signup-email');
+        const passwordInput = document.getElementById('signup-password');
+        const confirmPasswordInput = document.getElementById('confirm-password');
+        const signupErrorMessage = document.getElementById('signup-error-message');
+        const loginEmailInput = document.getElementById('login-email');
+        const loginPasswordInput = document.getElementById('login-password');
+        const loginErrorMessage = document.getElementById('login-error-message');
+
+        function showError(element, message) {
+            if (!element) return;
+            element.textContent = message;
+            element.style.display = 'block';
+        }
+
+        function clearError(element) {
+            if (!element) return;
+            element.textContent = '';
+            element.style.display = 'none';
+        }
+
+        function validateSignupForm(event) {
+            if (!signupForm) return true;
+
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            if (password !== confirmPassword) {
+                event.preventDefault();
+                showError(signupErrorMessage, 'Passwords do not match.');
+                return false;
+            }
+
+            clearError(signupErrorMessage);
+            return true;
+        }
+
+        function validateLoginForm(event) {
+            if (!loginForm) return true;
+
+            clearError(loginErrorMessage);
+            return true;
+        }
+
+        if (signupForm) {
+            signupForm.addEventListener('submit', validateSignupForm);
+        }
+
+        if (loginForm) {
+            loginForm.addEventListener('submit', validateLoginForm);
+        }
+
+        [firstNameInput, emailInput, passwordInput, confirmPasswordInput].forEach((field) => {
+            if (field) {
+                field.addEventListener('input', () => clearError(signupErrorMessage));
+            }
+        });
+
+        [loginEmailInput, loginPasswordInput].forEach((field) => {
+            if (field) {
+                field.addEventListener('input', () => clearError(loginErrorMessage));
+            }
+        });
+    });
+</script>
+{% endblock %}

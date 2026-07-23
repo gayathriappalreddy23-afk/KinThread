@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<header class="main-header">
+    <div class="header-top">
+        <div class="logo">
+            <a href="{% url 'dashboard' %}">KinThread</a>
+        </div>
+        <form class="search-bar" action="{% url 'search-products' %}" method="get">
+            <input type="text" name="q" placeholder="Search for products, brands and more...">
+            <button class="search-btn" type="submit">🔍</button>
+        </form>
+        <div class="header-icons">
+            <a href="#" class="icon-link" title="Wishlist">❤️</a>
+            <a href="{% url 'cart' %}" class="icon-link" title="Cart">🛒</a>
+            <div class="user-menu">
+                <a href="#" class="icon-link" title="Profile">👤 {{ user.first_name|default:user.username }}</a>
+                <a href="{% url 'logout' %}" class="logout-link" title="Logout">Logout</a>
+            </div>
+        </div>
+    </div>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' or request.resolver_match.url_name == 'dashboard' %}active{% endif %}">Home</a></li>
+            <li><a href="{% url 'men' %}" class="{% if request.resolver_match.url_name == 'men' %}active{% endif %}">Men</a></li>
+            <li><a href="{% url 'women' %}" class="{% if request.resolver_match.url_name == 'women' %}active{% endif %}">Women</a></li>
+            <li><a href="{% url 'accessories' %}" class="{% if request.resolver_match.url_name == 'accessories' %}active{% endif %}">Accessories</a></li>
+            <li><a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a></li>
+            <li><a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="page-content">
+    {% block page_content %}{% endblock %}
+</main>
+
+<footer class="main-footer">
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h3>KinThread</h3>
+            <p>Style that brings us together.</p>
+        </div>
+        <div class="footer-col">
+            <h3>Shop</h3>
+            <ul>
+                <li><a href="{% url 'men' %}">Men</a></li>
+                <li><a href="{% url 'women' %}">Women</a></li>
+                <li><a href="{% url 'accessories' %}">Accessories</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>Help</h3>
+            <ul>
+                <li><a href="{% url 'contact' %}">Customer Service</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'search-products' %}">Search Catalog</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="#">IG</a>
+                <a href="#">FB</a>
+                <a href="#">TW</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 KinThread. All rights reserved.</p>
+    </div>
+</footer>
+{% endblock %}

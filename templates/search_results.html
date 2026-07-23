@@ -1,0 +1,43 @@
+{% extends 'base_nav.html' %}
+{% load static %}
+
+{% block page_content %}
+<div class="dashboard-shell">
+    <section class="home-section">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">Search</p>
+                <h3 class="section-title">{% if query %}Results for “{{ query }}”{% else %}Product Search{% endif %}</h3>
+                {% if category_slug %}<p class="meta">Scoped to {{ category_slug }}</p>{% endif %}
+            </div>
+        </div>
+
+        <div class="product-grid">
+            {% for product in products %}
+            <article class="product-card">
+                <div class="img-wrapper">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                    {% elif product.image_url %}
+                        <img src="{{ product.image_url }}" alt="{{ product.title }}">
+                    {% else %}
+                        <img src="{% static 'images/hero_banner.png' %}" alt="{{ product.title }}">
+                    {% endif %}
+                    <a href="{% url 'add-to-cart' product.id %}" class="btn-add-cart">Add to Cart</a>
+                </div>
+                <div class="product-info">
+                    <h4>{{ product.title }}</h4>
+                    <p class="price">${{ product.price }}</p>
+                    <p class="meta">{{ product.brand.name|default:'KinThread' }}</p>
+                </div>
+            </article>
+            {% empty %}
+            <div class="empty-state">
+                <h3>No products found</h3>
+                <p>Try using a different keyword or browse a category.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}

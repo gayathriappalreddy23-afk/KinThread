@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="auth-container" style="min-height:100vh; display:flex; align-items:center; justify-content:center;">
+    <div class="auth-form-wrapper" style="max-width:420px; width:100%; padding:32px; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,0.08); background:#fff;">
+        <h2 style="margin-bottom:8px;">Continue with Google</h2>
+        <p style="margin-bottom:20px; color:#6b7280;">Enter your email to continue securely.</p>
+        <form method="post" action="{% url 'google_login' %}">
+            {% csrf_token %}
+            <div class="input-group">
+                <label for="google-email">Email Address</label>
+                <input type="email" id="google-email" name="email" required placeholder="name@example.com" style="width:100%; padding:12px; border:1px solid #d1d5db; border-radius:8px;">
+            </div>
+            <button type="submit" class="btn-primary" style="width:100%; margin-top:8px;">Continue</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

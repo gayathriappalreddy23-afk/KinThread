@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="padding: 3rem; text-align: center;">
+    <h1>Welcome to your Dashboard, {{ user.first_name|default:user.username }}!</h1>
+    <p>You have successfully logged in to KinThread.</p>
+    
+    <div style="margin-top: 2rem;">
+        <a href="{% url 'logout' %}" style="padding: 10px 20px; background: var(--primary); color: white; text-decoration: none; border-radius: var(--radius);">Logout</a>
+    </div>
+</div>
+{% endblock %}

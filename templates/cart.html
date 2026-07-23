@@ -1,0 +1,48 @@
+{% extends 'base_nav.html' %}
+{% load static %}
+
+{% block page_content %}
+<div class="dashboard-shell">
+    <section class="home-section">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">Your bag</p>
+                <h3 class="section-title">Shopping Cart</h3>
+            </div>
+        </div>
+
+        {% if products %}
+        <div class="product-grid">
+            {% for item in products %}
+            <article class="product-card">
+                <div class="img-wrapper">
+                    {% if item.product.image %}
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.title }}">
+                    {% elif item.product.image_url %}
+                        <img src="{{ item.product.image_url }}" alt="{{ item.product.title }}">
+                    {% else %}
+                        <img src="{% static 'images/hero_banner.png' %}" alt="{{ item.product.title }}">
+                    {% endif %}
+                </div>
+                <div class="product-info">
+                    <h4>{{ item.product.title }}</h4>
+                    <p class="price">${{ item.product.price }}</p>
+                    <p class="meta">Qty: {{ item.quantity }}</p>
+                    <p class="meta">Subtotal: ${{ item.subtotal }}</p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        <div class="empty-state">
+            <h3>Total: ${{ total }}</h3>
+            <p>{{ item_count }} item{{ item_count|pluralize }} in your cart.</p>
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <h3>Your cart is empty</h3>
+            <p>Add products from the dashboard or category pages to get started.</p>
+        </div>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

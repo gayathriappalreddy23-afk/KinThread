@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Billing - MyShop</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer>
+    function confirmOrder() {
+  alert("✅ Your order has been placed successfully!\nThank you for shopping with MyShop.");
+  return false; 
+}
+
+  </script>
+  <style>
+    .billing-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.billing-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2e7d32;
+}
+
+.billing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.billing-form, .order-summary {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.billing-form h2, .order-summary h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.billing-form label {
+  display: block;
+  margin-top: 12px;
+  font-weight: bold;
+  color: #555;
+}
+
+.billing-form input,
+.billing-form textarea,
+.billing-form select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.billing-form button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  background: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.billing-form button:hover {
+  background: #388e3c;
+}
+
+.order-summary table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.order-summary th, .order-summary td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+.order-summary .total td {
+  font-weight: bold;
+  font-size: 18px;
+  color: #2e7d32;
+}
+
+  </style>
+</head>
+<body>
+
+  <header>
+   
+    <nav>
+       <div class="logo">🛒 MyShop</div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="women.html">Women’s World</a></li>
+        <li><a href="men.html">Men’s World</a></li>
+        <li><a href="accessories.html">Accessories</a></li>
+        <li><a href="billing.html">Billing</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="billing-container">
+    <h1>Checkout & Billing</h1>
+    <div class="billing-grid">
+
+      <div class="billing-form">
+        <h2>Billing Details</h2>
+        <form id="billingForm" onsubmit="return confirmOrder()">
+          <label>Full Name</label>
+          <input type="text" name="fullname" required>
+
+          <label>Email</label>
+          <input type="email" name="email" required>
+
+          <label>Phone Number</label>
+          <input type="tel" name="phone" required>
+
+          <label>Address</label>
+          <textarea name="address" required></textarea>
+
+          <label>Payment Method</label>
+          <select name="payment" required>
+            <option value="">-- Select --</option>
+            <option value="credit">Credit Card</option>
+            <option value="debit">Debit Card</option>
+            <option value="upi">UPI</option>
+            <option value="cod">Cash on Delivery</option>
+          </select>
+
+          <button type="submit">Place Order</button>
+        </form>
+      </div>
+
+      <div class="order-summary">
+        <h2>Order Summary</h2>
+        <table>
+          <tr>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Price</th>
+          </tr>
+          <tr>
+            <td>Leather Handbag</td>
+            <td>1</td>
+            <td>₹2,499</td>
+          </tr>
+          <tr>
+            <td>Stylish Sunglasses</td>
+            <td>2</td>
+            <td>₹1,798</td>
+          </tr>
+          <tr>
+            <td>Sports Shoes</td>
+            <td>1</td>
+            <td>₹1,999</td>
+          </tr>
+          <tr class="total">
+            <td colspan="2">Total</td>
+            <td><strong>₹6,296</strong></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>MyShop</h3>
+        <p>Thank you for shopping with us!</p>
+      </div>
+      <div class="footer-section">
+        <h4>Need Help?</h4>
+        <p>Email: support@myshop.com</p>
+        <p>Phone: +91 98765 43210</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 MyShop | All Rights Reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

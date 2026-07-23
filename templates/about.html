@@ -1,0 +1,30 @@
+{% extends 'base_nav.html' %}
+
+{% block page_content %}
+<div class="dashboard-shell">
+  <section class="home-section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Our story</p>
+        <h3 class="section-title">About KinThread</h3>
+      </div>
+    </div>
+
+    <div class="product-grid" style="grid-template-columns: 1fr 1fr; align-items:start;">
+      <div class="product-card" style="padding: 1.5rem;">
+        <h4>Who we are</h4>
+        <p>KinThread is a modern fashion store for families and friends who want stylish, everyday essentials with confidence and ease.</p>
+        <p>We focus on quality, comfort, and a seamless shopping experience from discovery to delivery.</p>
+      </div>
+      <div class="review-card" style="padding: 1.5rem;">
+        <h4>Why customers choose us</h4>
+        <ul style="padding-left: 1rem; line-height: 1.8;">
+          <li>Curated fashion for men, women, kids, and beauty</li>
+          <li>Reliable delivery and friendly support</li>
+          <li>Easy-to-browse product categories</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}
