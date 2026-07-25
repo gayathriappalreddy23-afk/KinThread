@@ -2,212 +2,548 @@
 {% load static %}
 
 {% block page_content %}
-<div class="dashboard-shell">
-{% if search_query %}
-<section class="home-section search-results-section">
-    <div class="section-heading">
-        <div>
-            <p class="eyebrow">Search</p>
-            <h3 class="section-title">Results for "{{ search_query }}"</h3>
+<div class="dashboard-shell dashboard-content">
+
+    <!-- Dynamic Category Shortcuts (6 Category Images) -->
+    <div class="category-shortcuts">
+        <div class="category-item active">
+            <div class="avatar"><img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=150&q=80" alt="Home"></div>
+            <span class="cat-label">Home</span>
+            <div class="active-dot"></div>
+        </div>
+        <div class="category-item">
+            <div class="avatar"><img src="https://images.unsplash.com/photo-1516195851888-6f1a981a862e?auto=format&fit=crop&w=150&q=80" alt="Men"></div>
+            <span class="cat-label">Men</span>
+        </div>
+        <div class="category-item">
+            <div class="avatar"><img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=150&q=80" alt="Women"></div>
+            <span class="cat-label">Women</span>
+        </div>
+        <div class="category-item">
+            <div class="avatar"><img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=150&q=80" alt="Ethnic Wear"></div>
+            <span class="cat-label">Ethnic</span>
+        </div>
+        <div class="category-item">
+            <div class="avatar"><img src="https://images.unsplash.com/photo-1509319117193-57bab727e09d?auto=format&fit=crop&w=150&q=80" alt="Accessories"></div>
+            <span class="cat-label">Accessories</span>
+        </div>
+        <div class="category-item">
+            <div class="avatar"><img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=150&q=80" alt="Footwear"></div>
+            <span class="cat-label">Footwear</span>
         </div>
     </div>
 
-    <div class="product-grid">
-        {% for product in search_results %}
-        <div class="product-card">
-            <div class="img-wrapper">
-                <img src="{{ product.image_url }}" alt="{{ product.title }}">
-                <a href="{% url 'add-to-cart' product.id %}" class="btn-add-cart">Add to Cart</a>
+    <!-- Marketing Banners (2 Featured Banner Images) -->
+    <div class="marketing-grid">
+        <div class="promo-banner main-promo">
+            <div class="promo-content">
+                <h2>SPRING BREAK SALE<br>GET UP TO 50% OFF</h2>
+                <p>FREE SHIPPING | NO CODE NEEDED</p>
+                <a href="{% url 'men' %}" class="btn-dark" style="text-decoration: none; display: inline-block;">New Arrivals &rarr;</a>
             </div>
-            <div class="product-info">
-                <h4>{{ product.title }}</h4>
-                <p class="price">${{ product.price }}</p>
+            <img class="promo-img" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80" alt="Apparel Collection">
+        </div>
+        
+        <div class="promo-banner secondary-promo" style="background-image: linear-gradient(rgba(30, 58, 138, 0.75), rgba(18, 18, 20, 0.85)), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=600&q=80'); background-size: cover; background-position: center;">
+            <div class="promo-content">
+                <h2>GET BIG<br>SEASON SALE</h2>
+                <p class="callout">SAVE UP TO<br><span>75%</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 1: Top Collection -->
+    <div class="home-section-header section-heading">
+        <div>
+            <h3>Top Collection</h3>
+            <p>Our handpicked bestsellers and trending apparel for the season.</p>
+        </div>
+        <a href="{% url 'men' %}" class="view-all">View All ↗</a>
+    </div>
+    
+    <div class="product-showcase-grid" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px; margin-bottom: 40px;">
+        {% for product in top_collection %}
+        <div class="product-card">
+            <span class="product-card-badge">Bestseller</span>
+            <img src="{{ product.image_url|default:'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=400&q=80' }}" alt="{{ product.title }}">
+            <h3>{{ product.title }}</h3>
+            <div class="product-card-footer">
+                <p class="price">₹{{ product.price }}</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
             </div>
         </div>
         {% empty %}
-        <p>No results found for "{{ search_query }}". Try another keyword.</p>
-        {% endfor %}
-    </div>
-</section>
-{% endif %}
-
-<!-- Hero Banner -->
-<section class="hero-banner">
-    <img src="{% static 'images/hero_banner.png' %}" alt="Latest Fashion Collection" class="hero-bg">
-    <div class="hero-content">
-        <h2>Latest Fashion Collection</h2>
-        <p>Discover the new arrivals for the season. Elevate your everyday style.</p>
-        <a href="{% url 'men' %}" class="btn-shop-now" style="display:inline-block; text-decoration:none;">Shop Now</a>
-    </div>
-</section>
-
-<!-- Shop by Category -->
-<section class="home-section category-section">
-    <div class="section-heading">
-        <div>
-            <p class="eyebrow">Fresh edits</p>
-            <h3 class="section-title">Shop by Category</h3>
-        </div>
-        <a href="{% url 'men' %}" class="section-link">See all</a>
-    </div>
-    <div class="category-grid">
-        {% for category in categories %}
-        {% if category.slug == 'men' %}
-            <a href="{% url 'men' %}" class="category-card">
-                <img src="{% static 'images/cat_men.png' %}" alt="{{ category.name }}">
-                <div class="cat-overlay">{{ category.name }}</div>
-            </a>
-        {% elif category.slug == 'women' %}
-            <a href="{% url 'women' %}" class="category-card">
-                <img src="{% static 'images/cat_women.png' %}" alt="{{ category.name }}">
-                <div class="cat-overlay">{{ category.name }}</div>
-            </a>
-        {% elif category.slug == 'accessories' %}
-            <a href="{% url 'accessories' %}" class="category-card">
-                <img src="{% static 'images/carousel_3.png' %}" alt="{{ category.name }}">
-                <div class="cat-overlay">{{ category.name }}</div>
-            </a>
-        {% else %}
-            <a href="{% url 'category-page' category.slug %}" class="category-card">
-                <img src="{% static 'images/carousel_3.png' %}" alt="{{ category.name }}">
-                <div class="cat-overlay">{{ category.name }}</div>
-            </a>
-        {% endif %}
-        {% endfor %}
-    </div>
-</section>
-
-<!-- Trending Products (Horizontal Scroll) -->
-<section class="home-section trending-section">
-    <div class="section-heading">
-        <div>
-            <p class="eyebrow">Most loved</p>
-            <h3 class="section-title">Trending Products</h3>
-        </div>
-        <a href="{% url 'search-products' %}" class="section-link">View offers</a>
-    </div>
-    <div class="product-scroll">
-        {% for product in trending_products %}
+        <!-- 24 High-Res Top Collection Product Showcase Cards -->
         <div class="product-card">
-            <div class="img-wrapper">
-                {% if product.image %}
-                    <img src="{{ product.image.url }}" alt="{{ product.title }}">
-                {% elif product.image_url %}
-                    <img src="{{ product.image_url }}" alt="{{ product.title }}">
-                {% else %}
-                    <img src="{% static 'images/hero_banner.png' %}" alt="{{ product.title }}">
-                {% endif %}
-                <a href="{% url 'add-to-cart' product.id %}" class="btn-add-cart">Add to Cart</a>
-            </div>
-            <div class="product-info">
-                <h4>{{ product.title }}</h4>
-                <p class="price">${{ product.price }}</p>
+            <span class="product-card-badge">Bestseller</span>
+            <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=400&q=80" alt="KinThread Tailored Navy Blazer">
+            <h3>KinThread Tailored Navy Blazer</h3>
+            <div class="product-card-footer">
+                <p class="price">₹2,499</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
             </div>
         </div>
-        {% empty %}
-        <p>No trending products available.</p>
-        {% endfor %}
-    </div>
-</section>
-
-<!-- Flash Sale -->
-<section class="home-section flash-sale">
-    <div class="flash-content">
-        <h2>Flash Sale!</h2>
-        <p>Up to 50% off on selected items.</p>
-        <div class="timer">
-            <span>12<small>h</small></span> :
-            <span>34<small>m</small></span> :
-            <span>59<small>s</small></span>
-        </div>
-        <a href="{% url 'men' %}" class="btn-shop-now" style="display:inline-block; text-decoration:none;">Grab Deals</a>
-    </div>
-</section>
-
-<!-- New Arrivals (Grid) -->
-<section class="home-section new-arrivals">
-    <div class="section-heading">
-        <div>
-            <p class="eyebrow">Latest drop</p>
-            <h3 class="section-title">New Arrivals</h3>
-        </div>
-        <a href="{% url 'search-products' %}" class="section-link">Explore</a>
-    </div>
-    <div class="product-grid">
-        {% for product in new_arrivals %}
         <div class="product-card">
-            <div class="img-wrapper">
-                {% if product.image %}
-                    <img src="{{ product.image.url }}" alt="{{ product.title }}">
-                {% elif product.image_url %}
-                    <img src="{{ product.image_url }}" alt="{{ product.title }}">
-                {% else %}
-                    <img src="{% static 'images/hero_banner.png' %}" alt="{{ product.title }}">
-                {% endif %}
-                <a href="{% url 'add-to-cart' product.id %}" class="btn-add-cart">Add to Cart</a>
-            </div>
-            <div class="product-info">
-                <h4>{{ product.title }}</h4>
-                <p class="price">${{ product.price }}</p>
+            <span class="product-card-badge">Hot</span>
+            <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=400&q=80" alt="KinThread Heritage Denim Jacket">
+            <h3>KinThread Heritage Denim Jacket</h3>
+            <div class="product-card-footer">
+                <p class="price">₹3,299</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
             </div>
         </div>
-        {% empty %}
-        <p>No new arrivals available.</p>
+        <div class="product-card">
+            <span class="product-card-badge">New</span>
+            <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=400&q=80" alt="KinThread Vintage Leather Jacket">
+            <h3>KinThread Vintage Leather Jacket</h3>
+            <div class="product-card-footer">
+                <p class="price">₹4,299</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">Trending</span>
+            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80" alt="KinThread Wool Trench Coat">
+            <h3>KinThread Wool Trench Coat</h3>
+            <div class="product-card-footer">
+                <p class="price">₹4,599</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">Royal</span>
+            <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=400&q=80" alt="KinThread Royal Velvet Sherwani">
+            <h3>KinThread Royal Velvet Sherwani</h3>
+            <div class="product-card-footer">
+                <p class="price">₹5,199</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">Couture</span>
+            <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=400&q=80" alt="KinThread Golden Banarasi Saree">
+            <h3>KinThread Golden Banarasi Saree</h3>
+            <div class="product-card-footer">
+                <p class="price">₹5,999</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">Luxury</span>
+            <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=400&q=80" alt="Ethnic Designer Silk Kurti">
+            <h3>Ethnic Designer Silk Kurti</h3>
+            <div class="product-card-footer">
+                <p class="price">₹3,499</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">Executive</span>
+            <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=400&q=80" alt="Executive Charcoal Suit">
+            <h3>Executive Charcoal Suit</h3>
+            <div class="product-card-footer">
+                <p class="price">₹6,299</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">Bestseller</span>
+            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=400&q=80" alt="Classic Pure Cotton Shirt">
+            <h3>Classic Pure Cotton Shirt</h3>
+            <div class="product-card-footer">
+                <p class="price">₹1,499</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">Limited</span>
+            <img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=400&q=80" alt="Couture Silk Evening Gown">
+            <h3>Couture Silk Evening Gown</h3>
+            <div class="product-card-footer">
+                <p class="price">₹6,899</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">Chic</span>
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=80" alt="Spring Casual Blazer">
+            <h3>Spring Casual Blazer</h3>
+            <div class="product-card-footer">
+                <p class="price">₹2,899</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">Urban</span>
+            <img src="https://images.unsplash.com/photo-1479064555552-3ef4979f8908?auto=format&fit=crop&w=400&q=80" alt="Slim Fit Chino Trousers">
+            <h3>Slim Fit Chino Trousers</h3>
+            <div class="product-card-footer">
+                <p class="price">₹1,899</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">Traditional</span>
+            <img src="https://images.unsplash.com/photo-1609357605129-26f69add5d6e?auto=format&fit=crop&w=400&q=80" alt="Handcrafted Brocade Dupatta">
+            <h3>Handcrafted Brocade Dupatta</h3>
+            <div class="product-card-footer">
+                <p class="price">₹1,699</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">Popular</span>
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80" alt="Chronograph Gold Watch">
+            <h3>Chronograph Gold Watch</h3>
+            <div class="product-card-footer">
+                <p class="price">₹4,999</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">Luxury</span>
+            <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=400&q=80" alt="Italian Leather Handbag">
+            <h3>Italian Leather Handbag</h3>
+            <div class="product-card-footer">
+                <p class="price">₹5,499</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">Designer</span>
+            <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=400&q=80" alt="Gradient Designer Sunglasses">
+            <h3>Gradient Designer Sunglasses</h3>
+            <div class="product-card-footer">
+                <p class="price">₹2,199</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">New</span>
+            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=400&q=80" alt="Diamond Crystal Necklace">
+            <h3>Diamond Crystal Necklace</h3>
+            <div class="product-card-footer">
+                <p class="price">₹7,299</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">Classic</span>
+            <img src="https://images.unsplash.com/photo-1624224971170-2f84fed5eb5e?auto=format&fit=crop&w=400&q=80" alt="Reversible Leather Belt">
+            <h3>Reversible Leather Belt</h3>
+            <div class="product-card-footer">
+                <p class="price">₹1,299</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">Summer</span>
+            <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=400&q=80" alt="Floral Summer Dress">
+            <h3>Floral Summer Dress</h3>
+            <div class="product-card-footer">
+                <p class="price">₹2,599</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">Trending</span>
+            <img src="https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=400&q=80" alt="Casual Linen Blazer">
+            <h3>Casual Linen Blazer</h3>
+            <div class="product-card-footer">
+                <p class="price">₹3,799</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">Ethnic</span>
+            <img src="https://images.unsplash.com/photo-1583391733975-22d7b4200885?auto=format&fit=crop&w=400&q=80" alt="Embroidered Designer Kurta">
+            <h3>Embroidered Designer Kurta</h3>
+            <div class="product-card-footer">
+                <p class="price">₹2,999</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">Hot</span>
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80" alt="Pro Athletic Sneakers">
+            <h3>Pro Athletic Sneakers</h3>
+            <div class="product-card-footer">
+                <p class="price">₹3,999</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">Royal</span>
+            <img src="https://images.unsplash.com/photo-1520975954732-35dd22299614?auto=format&fit=crop&w=400&q=80" alt="Velvet Evening Jacket">
+            <h3>Velvet Evening Jacket</h3>
+            <div class="product-card-footer">
+                <p class="price">₹4,899</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+        <div class="product-card">
+            <span class="product-card-badge">Bestseller</span>
+            <img src="https://images.unsplash.com/photo-1495105787522-5334e3ffa0ef?auto=format&fit=crop&w=400&q=80" alt="Casual Overcoat">
+            <h3>Casual Overcoat</h3>
+            <div class="product-card-footer">
+                <p class="price">₹5,299</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
         {% endfor %}
     </div>
-</section>
 
-<!-- Featured Brands -->
-<section class="home-section brands-section">
-    <div class="section-heading">
+    <!-- Section 2: Curated KinThread Fashion Gallery (12 Images) -->
+    <div class="home-section-header">
         <div>
-            <p class="eyebrow">Trusted labels</p>
-            <h3 class="section-title">Featured Brands</h3>
+            <h3>Curated KinThread Fashion Gallery</h3>
+            <p>Explore luxury apparel, ethnic designer wear, and premium essentials.</p>
+        </div>
+        <a href="{% url 'women' %}" class="view-all">Browse Women ↗</a>
+    </div>
+    
+    <div class="product-showcase-grid" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px; margin-bottom: 40px;">
+        <div class="product-card">
+            <span class="product-card-badge">Ethnic</span>
+            <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=400&q=80" alt="Ethnic Designer Lehenga">
+            <h3>Ethnic Designer Lehenga</h3>
+            <div class="product-card-footer">
+                <p class="price">₹5,499</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Couture</span>
+            <img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=400&q=80" alt="Couture Silk Evening Gown">
+            <h3>Couture Silk Evening Gown</h3>
+            <div class="product-card-footer">
+                <p class="price">₹6,499</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Summer</span>
+            <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=400&q=80" alt="Floral Chiffon Summer Dress">
+            <h3>Floral Chiffon Summer Dress</h3>
+            <div class="product-card-footer">
+                <p class="price">₹1,899</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Casual</span>
+            <img src="https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=400&q=80" alt="Vintage Urban Denim Jacket">
+            <h3>Vintage Urban Denim Jacket</h3>
+            <div class="product-card-footer">
+                <p class="price">₹2,399</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Cozy</span>
+            <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=400&q=80" alt="Cashmere Knit Pullover">
+            <h3>Cashmere Knit Pullover</h3>
+            <div class="product-card-footer">
+                <p class="price">₹2,699</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Footwear</span>
+            <img src="https://images.unsplash.com/photo-1520639888713-7851133b1ed0?auto=format&fit=crop&w=400&q=80" alt="Handcrafted Chelsea Boots">
+            <h3>Handcrafted Chelsea Boots</h3>
+            <div class="product-card-footer">
+                <p class="price">₹3,699</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Leather</span>
+            <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=400&q=80" alt="Luxury Leather Tote Bag">
+            <h3>Luxury Leather Tote Bag</h3>
+            <div class="product-card-footer">
+                <p class="price">₹3,999</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Accessory</span>
+            <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=400&q=80" alt="Designer Polarized Sunglasses">
+            <h3>Designer Polarized Sunglasses</h3>
+            <div class="product-card-footer">
+                <p class="price">₹2,199</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Luxe</span>
+            <img src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=400&q=80" alt="Minimalist Chronograph Watch">
+            <h3>Minimalist Chronograph Watch</h3>
+            <div class="product-card-footer">
+                <p class="price">₹4,799</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Pants</span>
+            <img src="https://images.unsplash.com/photo-1479064555552-3ef4979f8908?auto=format&fit=crop&w=400&q=80" alt="Tailored Slim Fit Chinos">
+            <h3>Tailored Slim Fit Chinos</h3>
+            <div class="product-card-footer">
+                <p class="price">₹1,799</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Satin</span>
+            <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?auto=format&fit=crop&w=400&q=80" alt="Satin Evening Blouse">
+            <h3>Satin Evening Blouse</h3>
+            <div class="product-card-footer">
+                <p class="price">₹1,999</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Linen</span>
+            <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=400&q=80" alt="Breathable Linen Shirt">
+            <h3>Breathable Linen Shirt</h3>
+            <div class="product-card-footer">
+                <p class="price">₹1,599</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
         </div>
     </div>
-    <div class="brands-marquee">
-        <span>Gucci</span> &bull; <span>Prada</span> &bull; <span>Zara</span> &bull; <span>H&M</span> &bull; <span>Nike</span> &bull; <span>Adidas</span> &bull; <span>Puma</span>
-    </div>
-</section>
 
-<!-- Customer Reviews -->
-<section class="home-section reviews-section">
-    <div class="section-heading">
+    <!-- Section 3: Family, Friends & Kin Style Showcase (11 Images) -->
+    <div class="home-section-header">
         <div>
-            <p class="eyebrow">Community love</p>
-            <h3 class="section-title">What Our Customers Say</h3>
+            <h3>Kin & Family Style Lookbook</h3>
+            <p>Celebrate special moments together with matching outfits and festive collections.</p>
         </div>
+        <a href="{% url 'about' %}" class="view-all">About KinThread ↗</a>
     </div>
-    <div class="reviews-grid">
-        <div class="review-card">
-            <p class="stars">★★★★★</p>
-            <p class="review-text">"Amazing quality! The clothes look exactly like the pictures."</p>
-            <p class="author">- Sarah J.</p>
-        </div>
-        <div class="review-card">
-            <p class="stars">★★★★★</p>
-            <p class="review-text">"Fast shipping and the material is top notch."</p>
-            <p class="author">- Michael T.</p>
-        </div>
-        <div class="review-card">
-            <p class="stars">★★★★☆</p>
-            <p class="review-text">"Great fit for the whole family. Will buy again!"</p>
-            <p class="author">- Emily R.</p>
-        </div>
-    </div>
-</section>
 
-<!-- Newsletter -->
-<section class="home-section newsletter-section">
-    <div class="newsletter-content">
-        <h3>Join the KinThread Family</h3>
-        <p>Subscribe to get 15% off your first order.</p>
-        <form class="newsletter-form">
-            <input type="email" placeholder="Enter your email address" required>
-            <button type="submit">Subscribe</button>
-        </form>
+    <div class="product-showcase-grid" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px; margin-bottom: 40px;">
+        <div class="product-card">
+            <span class="product-card-badge">Family</span>
+            <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=400&q=80" alt="Family Festive Ensemble">
+            <h3>Family Festive Ensemble</h3>
+            <div class="product-card-footer">
+                <p class="price">₹7,199</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Friends</span>
+            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=400&q=80" alt="Friends Summer Collection">
+            <h3>Friends Summer Collection</h3>
+            <div class="product-card-footer">
+                <p class="price">₹4,299</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Couple</span>
+            <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=80" alt="Modern Couple Chic">
+            <h3>Modern Couple Chic</h3>
+            <div class="product-card-footer">
+                <p class="price">₹4,799</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Streetwear</span>
+            <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80" alt="Urban Youth Streetwear">
+            <h3>Urban Youth Streetwear</h3>
+            <div class="product-card-footer">
+                <p class="price">₹2,199</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Winter</span>
+            <img src="https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=400&q=80" alt="Winter Overcoat Series">
+            <h3>Winter Overcoat Series</h3>
+            <div class="product-card-footer">
+                <p class="price">₹3,999</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Boho</span>
+            <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=400&q=80" alt="Boho Chic Summer Collection">
+            <h3>Boho Chic Summer Collection</h3>
+            <div class="product-card-footer">
+                <p class="price">₹2,599</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Runway</span>
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=80" alt="Couture Runway Essentials">
+            <h3>Couture Runway Essentials</h3>
+            <div class="product-card-footer">
+                <p class="price">₹5,699</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Heritage</span>
+            <img src="https://images.unsplash.com/photo-1509319117193-57bab727e09d?auto=format&fit=crop&w=400&q=80" alt="Heritage Accessories Set">
+            <h3>Heritage Accessories Set</h3>
+            <div class="product-card-footer">
+                <p class="price">₹2,899</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Designer</span>
+            <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=400&q=80" alt="Italian Designer Heels">
+            <h3>Italian Designer Heels</h3>
+            <div class="product-card-footer">
+                <p class="price">₹3,599</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Minimal</span>
+            <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80" alt="Minimalist Casual Wear">
+            <h3>Minimalist Casual Wear</h3>
+            <div class="product-card-footer">
+                <p class="price">₹1,999</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="product-card-badge">Lookbook</span>
+            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=400&q=80" alt="KinThread Exclusive Lookbook">
+            <h3>KinThread Exclusive Lookbook</h3>
+            <div class="product-card-footer">
+                <p class="price">₹4,399</p>
+                <a href="{% url 'cart' %}" class="btn-add-cart-mini">🛒 Add</a>
+            </div>
+        </div>
     </div>
-</section>
 
 </div>
 {% endblock %}

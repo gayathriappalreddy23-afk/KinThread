@@ -1,30 +1,129 @@
 {% extends 'base_nav.html' %}
+{% load static %}
 
 {% block page_content %}
 <div class="dashboard-shell">
-  <section class="home-section">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">Our story</p>
-        <h3 class="section-title">About KinThread</h3>
-      </div>
+    
+    <!-- Hero Banner for About KinThread -->
+    <div style="background: linear-gradient(135deg, var(--bg-card) 0%, rgba(194, 125, 88, 0.08) 100%); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 40px; margin-bottom: 32px; box-shadow: 0 8px 24px rgba(0,0,0,0.03);">
+        <p class="eyebrow" style="color: var(--accent-color); font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1.5px; margin-bottom: 8px;">Our Heritage & Craftsmanship</p>
+        <h2 style="font-family: var(--font-heading) !important; font-size: 2.5rem; font-weight: 900; color: var(--text-dark); margin-bottom: 12px;">About KinThread</h2>
+        <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 760px; line-height: 1.7;">
+            KinThread was born with a single vision: <strong>to weave families together through timeless fashion and modern luxury</strong>. From traditional celebration wear to sleek everyday essentials, we craft apparel that honors heritage while embracing contemporary style.
+        </p>
     </div>
 
-    <div class="product-grid" style="grid-template-columns: 1fr 1fr; align-items:start;">
-      <div class="product-card" style="padding: 1.5rem;">
-        <h4>Who we are</h4>
-        <p>KinThread is a modern fashion store for families and friends who want stylish, everyday essentials with confidence and ease.</p>
-        <p>We focus on quality, comfort, and a seamless shopping experience from discovery to delivery.</p>
-      </div>
-      <div class="review-card" style="padding: 1.5rem;">
-        <h4>Why customers choose us</h4>
-        <ul style="padding-left: 1rem; line-height: 1.8;">
-          <li>Curated fashion for men, women, kids, and beauty</li>
-          <li>Reliable delivery and friendly support</li>
-          <li>Easy-to-browse product categories</li>
-        </ul>
-      </div>
+    <!-- Core Brand Statistics Bar (4 Stats) -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px;">
+        <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 24px; text-align: center;">
+            <h3 style="font-size: 2.2rem; font-weight: 900; color: var(--accent-color); margin-bottom: 4px;">10,000+</h3>
+            <p style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark); text-transform: uppercase;">Styled Families</p>
+        </div>
+        <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 24px; text-align: center;">
+            <h3 style="font-size: 2.2rem; font-weight: 900; color: #16a34a; margin-bottom: 4px;">100%</h3>
+            <p style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark); text-transform: uppercase;">Sustainable Silk & Cotton</p>
+        </div>
+        <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 24px; text-align: center;">
+            <h3 style="font-size: 2.2rem; font-weight: 900; color: #2563eb; margin-bottom: 4px;">48 Hours</h3>
+            <p style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark); text-transform: uppercase;">Express Delivery</p>
+        </div>
+        <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 24px; text-align: center;">
+            <h3 style="font-size: 2.2rem; font-weight: 900; color: #f59e0b; margin-bottom: 4px;">4.9 ★</h3>
+            <p style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark); text-transform: uppercase;">Customer Rating</p>
+        </div>
     </div>
-  </section>
+
+    <!-- Product Collections Showcase (Men, Women, Accessories) -->
+    <div style="margin-bottom: 40px;">
+        <div class="home-section-header">
+            <div>
+                <h3 style="font-size: 1.8rem;">Curated KinThread Collections</h3>
+                <p>Designed for every member of the family across every occasion.</p>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px;">
+            
+            <!-- 🤵 Men's Line -->
+            <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 28px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="font-size: 2.5rem; margin-bottom: 12px;">🤵</div>
+                    <h4 style="font-family: var(--font-heading) !important; font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin-bottom: 8px;">Men's Apparel</h4>
+                    <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 16px;">
+                        Tailored royal kurtas, bandhgala suits, formal linen shirts, structured blazers, and handcrafted leather footwear built for distinction.
+                    </p>
+                    <ul style="color: var(--text-dark); font-size: 0.88rem; line-height: 1.8; margin-bottom: 20px; padding-left: 18px;">
+                        <li>Royal Silk & Chanderi Ethnic Kurtas</li>
+                        <li>Slim-Fit Formal Suits & Tuxedos</li>
+                        <li>Linen Shirts & Casual Polo Tees</li>
+                        <li>Handcrafted Leather Loafers & Juttis</li>
+                    </ul>
+                </div>
+                <a href="{% url 'men' %}" class="btn-primary" style="text-align: center; text-decoration: none; padding: 10px; background: var(--accent-color); color: white; border-radius: 8px; font-weight: 700;">Explore Men &rarr;</a>
+            </div>
+
+            <!-- 👗 Women's Collection -->
+            <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 28px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="font-size: 2.5rem; margin-bottom: 12px;">👗</div>
+                    <h4 style="font-family: var(--font-heading) !important; font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin-bottom: 8px;">Women's Collection</h4>
+                    <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 16px;">
+                        Handwoven Kanjivaram and Banarasi sarees, embroidered bridal lehengas, Indo-western fusion gowns, and luxury evening wear.
+                    </p>
+                    <ul style="color: var(--text-dark); font-size: 0.88rem; line-height: 1.8; margin-bottom: 20px; padding-left: 18px;">
+                        <li>Handwoven Pure Banarasi & Silk Sarees</li>
+                        <li>Designer Zardosi Bridal Lehengas</li>
+                        <li>Anarkali Suits & Kurti Sets</li>
+                        <li>Indo-Western Fusion Dresses</li>
+                    </ul>
+                </div>
+                <a href="{% url 'women' %}" class="btn-primary" style="text-align: center; text-decoration: none; padding: 10px; background: var(--accent-color); color: white; border-radius: 8px; font-weight: 700;">Explore Women &rarr;</a>
+            </div>
+
+            <!-- ⌚ Luxury Accessories -->
+            <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 28px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="font-size: 2.5rem; margin-bottom: 12px;">⌚</div>
+                    <h4 style="font-family: var(--font-heading) !important; font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin-bottom: 8px;">Luxury Accessories</h4>
+                    <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 16px;">
+                        Chronograph wristwatches, handcrafted leather totes & wallets, UV400 designer sunglasses, and fine gold-plated jewelry.
+                    </p>
+                    <ul style="color: var(--text-dark); font-size: 0.88rem; line-height: 1.8; margin-bottom: 20px; padding-left: 18px;">
+                        <li>Automated Chronograph Wristwatches</li>
+                        <li>Full-Grain Genuine Leather Handbags</li>
+                        <li>Designer Aviator Sunglasses</li>
+                        <li>Handcrafted Kundan & Polki Jewelry</li>
+                    </ul>
+                </div>
+                <a href="{% url 'accessories' %}" class="btn-primary" style="text-align: center; text-decoration: none; padding: 10px; background: var(--accent-color); color: white; border-radius: 8px; font-weight: 700;">Explore Accessories &rarr;</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Core Brand Guarantees & Values -->
+    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 32px;">
+        <h3 style="font-family: var(--font-heading) !important; font-size: 1.5rem; font-weight: 800; color: var(--text-dark); margin-bottom: 20px;">Why KinThread?</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px;">
+            <div>
+                <h5 style="font-size: 1.05rem; font-weight: 700; color: var(--text-dark); margin-bottom: 6px;">🌿 100% Eco-Sustainable</h5>
+                <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5;">Ethically sourced organic cotton, Mulberry silk, and non-toxic eco dyes.</p>
+            </div>
+            <div>
+                <h5 style="font-size: 1.05rem; font-weight: 700; color: var(--text-dark); margin-bottom: 6px;">🛡️ 30-Day Easy Returns</h5>
+                <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5;">No questions asked doorstep return pickup and instant refunds.</p>
+            </div>
+            <div>
+                <h5 style="font-size: 1.05rem; font-weight: 700; color: var(--text-dark); margin-bottom: 6px;">💳 Instant 0% Fee UPI</h5>
+                <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5;">Pay effortlessly using PhonePe, Google Pay, Paytm, or Cash on Delivery.</p>
+            </div>
+            <div>
+                <h5 style="font-size: 1.05rem; font-weight: 700; color: var(--text-dark); margin-bottom: 6px;">📦 Express Shipping</h5>
+                <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5;">Fast 24-to-48 hour delivery across Metro cities in India.</p>
+            </div>
+        </div>
+    </div>
+
 </div>
 {% endblock %}

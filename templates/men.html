@@ -3,13 +3,109 @@
 
 {% block page_content %}
 <div class="dashboard-shell">
-    <section class="hero-banner category-hero" style="background: linear-gradient(135deg, #111827 0%, #1f2937 60%, #374151 100%);">
-        <div class="hero-content">
-            <p class="eyebrow" style="color: #9ca3af;">Tailored Fits & Modern Essentials</p>
-            <h2>{{ page_title }}</h2>
-            <p>{{ page_intro }}</p>
+    <!-- Men's Auto-Scrolling Hero Banner Carousel (5 High-Res Clear Images, 460px Height) -->
+    <div class="hero-carousel-container" style="position: relative; border-radius: var(--radius-md); overflow: hidden; margin-bottom: 28px; box-shadow: 0 12px 32px rgba(0,0,0,0.12);">
+        <div id="menCarousel" class="carousel-slides-wrapper" style="display: flex; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);">
+            
+            <!-- Slide 1 -->
+            <div class="carousel-slide" style="min-width: 100%; position: relative; height: 460px; background: linear-gradient(90deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.45) 60%, transparent 100%), url('https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=1400&q=85') center/cover no-repeat; display: flex; align-items: center; padding: 48px; color: white;">
+                <div style="max-width: 580px;">
+                    <span style="background: var(--accent-color); color: white; font-weight: 800; font-size: 0.8rem; padding: 5px 14px; border-radius: 12px; text-transform: uppercase; letter-spacing: 1px;">NEW SEASON ARRIVAL</span>
+                    <h2 style="font-family: var(--font-heading) !important; font-size: 2.6rem; font-weight: 900; margin: 12px 0; line-height: 1.2;">Men's Royal Ethnic & Kurta Sets</h2>
+                    <p style="color: #cbd5e1; font-size: 1.05rem; margin-bottom: 24px; line-height: 1.6;">Tailored Bandhgala kurtas, linen tuxedos, and handcrafted silk apparel for festive elegance.</p>
+                    <a href="#men-grid" style="display: inline-block; padding: 14px 32px; background: var(--accent-color); color: white; border-radius: 8px; font-weight: 800; text-decoration: none;">Shop Collection &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-slide" style="min-width: 100%; position: relative; height: 460px; background: linear-gradient(90deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.45) 60%, transparent 100%), url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1400&q=85') center/cover no-repeat; display: flex; align-items: center; padding: 48px; color: white;">
+                <div style="max-width: 580px;">
+                    <span style="background: #2563eb; color: white; font-weight: 800; font-size: 0.8rem; padding: 5px 14px; border-radius: 12px; text-transform: uppercase; letter-spacing: 1px;">FLAT 40% OFF</span>
+                    <h2 style="font-family: var(--font-heading) !important; font-size: 2.6rem; font-weight: 900; margin: 12px 0; line-height: 1.2;">Executive Suits & Tailored Blazers</h2>
+                    <p style="color: #cbd5e1; font-size: 1.05rem; margin-bottom: 24px; line-height: 1.6;">Impeccable fits designed for boardrooms, weddings, and formal gala celebrations.</p>
+                    <a href="#men-grid" style="display: inline-block; padding: 14px 32px; background: #2563eb; color: white; border-radius: 8px; font-weight: 800; text-decoration: none;">Explore Suits &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-slide" style="min-width: 100%; position: relative; height: 460px; background: linear-gradient(90deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.45) 60%, transparent 100%), url('https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?auto=format&fit=crop&w=1400&q=85') center/cover no-repeat; display: flex; align-items: center; padding: 48px; color: white;">
+                <div style="max-width: 580px;">
+                    <span style="background: #f59e0b; color: white; font-weight: 800; font-size: 0.8rem; padding: 5px 14px; border-radius: 12px; text-transform: uppercase; letter-spacing: 1px;">CASUAL ESSENTIALS</span>
+                    <h2 style="font-family: var(--font-heading) !important; font-size: 2.6rem; font-weight: 900; margin: 12px 0; line-height: 1.2;">Urban Denim & Streetwear Jackets</h2>
+                    <p style="color: #cbd5e1; font-size: 1.05rem; margin-bottom: 24px; line-height: 1.6;">Breathable cotton denim jackets, daily shirts, and rugged outdoor wear.</p>
+                    <a href="#men-grid" style="display: inline-block; padding: 14px 32px; background: #f59e0b; color: white; border-radius: 8px; font-weight: 800; text-decoration: none;">View Casuals &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="carousel-slide" style="min-width: 100%; position: relative; height: 460px; background: linear-gradient(90deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.45) 60%, transparent 100%), url('https://images.unsplash.com/photo-1614252369475-531eba835eb1?auto=format&fit=crop&w=1400&q=85') center/cover no-repeat; display: flex; align-items: center; padding: 48px; color: white;">
+                <div style="max-width: 580px;">
+                    <span style="background: #16a34a; color: white; font-weight: 800; font-size: 0.8rem; padding: 5px 14px; border-radius: 12px; text-transform: uppercase; letter-spacing: 1px;">HANDCRAFTED FOOTWEAR</span>
+                    <h2 style="font-family: var(--font-heading) !important; font-size: 2.6rem; font-weight: 900; margin: 12px 0; line-height: 1.2;">Leather Loafers & Royal Juttis</h2>
+                    <p style="color: #cbd5e1; font-size: 1.05rem; margin-bottom: 24px; line-height: 1.6;">Hand-stitched genuine leather shoes, formal Oxfords, and ethnic footwear.</p>
+                    <a href="#men-grid" style="display: inline-block; padding: 14px 32px; background: #16a34a; color: white; border-radius: 8px; font-weight: 800; text-decoration: none;">Shop Footwear &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Slide 5 -->
+            <div class="carousel-slide" style="min-width: 100%; position: relative; height: 460px; background: linear-gradient(90deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.45) 60%, transparent 100%), url('https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=1400&q=85') center/cover no-repeat; display: flex; align-items: center; padding: 48px; color: white;">
+                <div style="max-width: 580px;">
+                    <span style="background: #9333ea; color: white; font-weight: 800; font-size: 0.8rem; padding: 5px 14px; border-radius: 12px; text-transform: uppercase; letter-spacing: 1px;">SUMMER LINEN EDIT</span>
+                    <h2 style="font-family: var(--font-heading) !important; font-size: 2.6rem; font-weight: 900; margin: 12px 0; line-height: 1.2;">Organic Linen & Polo Shirts</h2>
+                    <p style="color: #cbd5e1; font-size: 1.05rem; margin-bottom: 24px; line-height: 1.6;">Ultra-soft breathable linens, breezy casual shirts, and resort luxury wear.</p>
+                    <a href="#men-grid" style="display: inline-block; padding: 14px 32px; background: #9333ea; color: white; border-radius: 8px; font-weight: 800; text-decoration: none;">View Shirts &rarr;</a>
+                </div>
+            </div>
+
         </div>
-    </section>
+
+        <!-- Carousel Dots Indicator (5 Dots) -->
+        <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10;">
+            <span class="m-dot active" onclick="setMenSlide(0)" style="width: 12px; height: 12px; border-radius: 50%; background: white; opacity: 0.9; cursor: pointer; transition: all 0.3s ease;"></span>
+            <span class="m-dot" onclick="setMenSlide(1)" style="width: 12px; height: 12px; border-radius: 50%; background: white; opacity: 0.4; cursor: pointer; transition: all 0.3s ease;"></span>
+            <span class="m-dot" onclick="setMenSlide(2)" style="width: 12px; height: 12px; border-radius: 50%; background: white; opacity: 0.4; cursor: pointer; transition: all 0.3s ease;"></span>
+            <span class="m-dot" onclick="setMenSlide(3)" style="width: 12px; height: 12px; border-radius: 50%; background: white; opacity: 0.4; cursor: pointer; transition: all 0.3s ease;"></span>
+            <span class="m-dot" onclick="setMenSlide(4)" style="width: 12px; height: 12px; border-radius: 50%; background: white; opacity: 0.4; cursor: pointer; transition: all 0.3s ease;"></span>
+        </div>
+    </div>
+
+    <!-- Feature Highlights Bar -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px 24px; margin-bottom: 32px;">
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; font-weight: 700; color: var(--text-dark);">
+            <span style="font-size: 1.4rem;">🚚</span> FREE Express Shipping Over ₹1,999
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; font-weight: 700; color: var(--text-dark);">
+            <span style="font-size: 1.4rem;">🛡️</span> 30-Day Easy Doorstep Returns
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; font-weight: 700; color: var(--text-dark);">
+            <span style="font-size: 1.4rem;">💳</span> Instant PhonePe / UPI 0% Fee
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; font-weight: 700; color: var(--text-dark);">
+            <span style="font-size: 1.4rem;">🌟</span> 100% Eco Silk & Organic Cotton
+        </div>
+    </div>
+
+    <script>
+        let currentMenSlide = 0;
+        const menWrapper = document.getElementById('menCarousel');
+        const menDots = document.querySelectorAll('.m-dot');
+
+        function setMenSlide(index) {
+            currentMenSlide = index;
+            if (menWrapper) {
+                menWrapper.style.transform = `translateX(-${index * 100}%)`;
+            }
+            menDots.forEach((dot, idx) => {
+                dot.style.opacity = idx === index ? '0.9' : '0.4';
+                dot.style.transform = idx === index ? 'scale(1.2)' : 'scale(1)';
+            });
+        }
+
+        setInterval(() => {
+            currentMenSlide = (currentMenSlide + 1) % 5;
+            setMenSlide(currentMenSlide);
+        }, 3600);
+    </script>
 
     <section class="home-section">
         <form method="get" class="catalog-toolbar">
@@ -24,9 +120,9 @@
                         <option value="{{ b.slug }}" {% if b.slug == brand %}selected{% endif %}>{{ b.name }}</option>
                     {% endfor %}
                 </select>
-                <input type="number" step="0.01" name="min_price" value="{{ min_price }}" placeholder="Min $">
-                <input type="number" step="0.01" name="max_price" value="{{ max_price }}" placeholder="Max $">
-                <button type="submit" class="btn-primary compact">Filter</button>
+                <input type="number" step="0.01" name="min_price" value="{{ min_price }}" placeholder="Min ₹">
+                <input type="number" step="0.01" name="max_price" value="{{ max_price }}" placeholder="Max ₹">
+                <button type="submit">Filter</button>
             </div>
         </form>
 
@@ -39,18 +135,25 @@
                     {% elif product.image_url %}
                         <img src="{{ product.image_url }}" alt="{{ product.title }}">
                     {% else %}
-                        <img src="{% static 'images/cat_men.png' %}" alt="{{ product.title }}">
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=500&q=80" alt="{{ product.title }}">
                     {% endif %}
-                    <a href="{% url 'add-to-cart' product.id %}" class="btn-add-cart">Add to Cart</a>
                 </div>
                 <div class="product-info">
-                    <h4>{{ product.title }}</h4>
-                    <p class="price">${{ product.price }}</p>
-                    <p class="meta">{{ product.brand.name|default:'KinThread' }}</p>
+                    <h4 style="font-size: 1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 6px;">{{ product.title }}</h4>
+                    <p class="meta" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">{{ product.brand.name|default:'KinThread' }}</p>
+                    <p class="price">
+                        {% if product.discount_price %}
+                            <span class="original-price">₹{{ product.price }}</span>
+                            <span>₹{{ product.discount_price }}</span>
+                        {% else %}
+                            <span>₹{{ product.price }}</span>
+                        {% endif %}
+                    </p>
+                    <a href="{% url 'add-to-cart' product.id %}" class="btn-add-cart">🛒 Add to Cart</a>
                 </div>
             </article>
             {% empty %}
-            <div class="empty-state">
+            <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
                 <h3>No men's products found</h3>
                 <p>Try clearing filters or search for another item.</p>
             </div>
@@ -59,4 +162,5 @@
     </section>
 </div>
 {% endblock %}
+
 

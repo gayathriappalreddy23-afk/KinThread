@@ -1,0 +1,306 @@
+{% extends 'base_nav.html' %}
+{% load static %}
+
+{% block page_content %}
+<div class="dashboard-shell">
+    
+    <!-- User Login Email & Profile Hero Card -->
+    <div class="user-profile-hero" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 28px 32px; margin-bottom: 28px; display: flex; align-items: center; justify-content: space-between; gap: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.04);">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div style="width: 68px; height: 68px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-color) 0%, #1e40af 100%); color: #ffffff; font-size: 2rem; font-weight: 900; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(0,0,0,0.15); border: 3px solid var(--bg-card); font-family: var(--font-heading) !important;">
+                {{ user_info.initial }}
+            </div>
+            <div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
+                    <h2 style="font-size: 1.7rem; font-weight: 900; color: var(--text-dark); margin: 0;">{{ user_info.full_name }}</h2>
+                    <span class="user-badge" style="font-size: 0.72rem; font-weight: 800; background: var(--accent-color); color: #fff; padding: 3px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">
+                        {{ user_info.member_badge|default:"AUTHENTICATED MEMBER ⭐" }}
+                    </span>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">📧 <strong>Logged-in Email:</strong> {{ user_info.email }}</p>
+            </div>
+        </div>
+        
+        <div style="display: flex; align-items: center; gap: 24px; text-align: right;">
+            <div>
+                <p style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Member Since</p>
+                <p style="font-size: 0.95rem; font-weight: 800; color: var(--text-dark); margin: 0;">
+                    {{ user_info.date_joined_str }}
+                </p>
+            </div>
+            <div>
+                <p style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Total Visits</p>
+                <p style="font-size: 0.95rem; font-weight: 800; color: var(--accent-color); margin: 0;">
+                    {{ visit_count }} Visits
+                </p>
+            </div>
+            <button type="button" onclick="openEditProfileModal()" style="padding: 10px 18px; background: var(--accent-color); color: white; border: none; border-radius: 8px; font-weight: 800; font-size: 0.88rem; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);">
+                ✏️ Edit Profile
+            </button>
+        </div>
+    </div>
+
+    <!-- Customer Account Logging & Database Information Card -->
+    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 28px; margin-bottom: 28px; box-shadow: 0 4px 18px rgba(0,0,0,0.03);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border-color);">
+            <div>
+                <h3 style="font-size: 1.3rem; font-weight: 900; color: var(--text-dark); margin-bottom: 4px; font-family: var(--font-heading) !important;">🔑 Customer Account Database Info</h3>
+                <p style="color: var(--text-muted); font-size: 0.88rem; margin: 0;">Verified login credentials, delivery address, and contact details stored in database.</p>
+            </div>
+            <button type="button" onclick="openEditProfileModal()" style="font-size: 0.82rem; font-weight: 800; background: rgba(37, 99, 235, 0.1); color: var(--accent-color); padding: 6px 14px; border-radius: 12px; border: 1px solid rgba(37, 99, 235, 0.3); cursor: pointer;">
+                ✏️ Update Details
+            </button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+            <div style="background: var(--bg-main); border: 1px solid var(--border-color); border-radius: 10px; padding: 18px;">
+                <p style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Logged-in Email</p>
+                <p style="font-size: 1.05rem; font-weight: 800; color: var(--accent-color); margin: 0; word-break: break-all;">📧 {{ user_info.email }}</p>
+            </div>
+
+            <div style="background: var(--bg-main); border: 1px solid var(--border-color); border-radius: 10px; padding: 18px;">
+                <p style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Customer Full Name</p>
+                <p style="font-size: 1.05rem; font-weight: 800; color: var(--text-dark); margin: 0;">👤 {{ user_info.full_name }}</p>
+            </div>
+
+            <div style="background: var(--bg-main); border: 1px solid var(--border-color); border-radius: 10px; padding: 18px;">
+                <p style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Phone Number</p>
+                <p style="font-size: 1.05rem; font-weight: 800; color: var(--text-dark); margin: 0;">📱 {{ user_info.phone }}</p>
+            </div>
+
+            <div style="background: var(--bg-main); border: 1px solid var(--border-color); border-radius: 10px; padding: 18px;">
+                <p style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Default Shipping Address</p>
+                <p style="font-size: 0.95rem; font-weight: 700; color: var(--text-dark); margin: 0;">📍 {{ user_info.address }}, {{ user_info.city }} - {{ user_info.pincode }}</p>
+            </div>
+
+            <div style="background: var(--bg-main); border: 1px solid var(--border-color); border-radius: 10px; padding: 18px;">
+                <p style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Last Login Activity</p>
+                <p style="font-size: 1.05rem; font-weight: 800; color: #16a34a; margin: 0;">
+                    🕒 {{ user_info.last_login_str }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Essential Activity Metrics Bar -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px;">
+        
+        <div class="metric-card" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; display: flex; align-items: center; gap: 16px;">
+            <div style="font-size: 2.2rem; line-height: 1;">🛍️</div>
+            <div>
+                <p style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Total Orders</p>
+                <h3 style="font-size: 1.6rem; font-weight: 900; color: var(--text-dark); margin: 0;">{{ total_orders_count }}</h3>
+            </div>
+        </div>
+
+        <div class="metric-card" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; display: flex; align-items: center; gap: 16px;">
+            <div style="font-size: 2.2rem; line-height: 1;">💳</div>
+            <div>
+                <p style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Total Amount Spent</p>
+                <h3 style="font-size: 1.6rem; font-weight: 900; color: var(--accent-color); margin: 0;">₹{{ total_spent }}</h3>
+            </div>
+        </div>
+
+        <div class="metric-card" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; display: flex; align-items: center; gap: 16px;">
+            <div style="font-size: 2.2rem; line-height: 1;">🛒</div>
+            <div>
+                <p style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Items in Cart</p>
+                <h3 style="font-size: 1.6rem; font-weight: 900; color: var(--text-dark); margin: 0;">{{ cart_items_count }}</h3>
+            </div>
+        </div>
+
+        <div class="metric-card" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; display: flex; align-items: center; gap: 16px;">
+            <div style="font-size: 2.2rem; line-height: 1;">👀</div>
+            <div>
+                <p style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Session Visits</p>
+                <h3 style="font-size: 1.6rem; font-weight: 900; color: var(--text-dark); margin: 0;">{{ visit_count }}</h3>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Active Cart Details Section -->
+    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 28px; margin-bottom: 28px; box-shadow: 0 4px 18px rgba(0,0,0,0.03);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; padding-bottom: 14px; border-bottom: 1px solid var(--border-color);">
+            <div>
+                <h3 style="font-size: 1.3rem; font-weight: 900; color: var(--text-dark); margin-bottom: 4px; font-family: var(--font-heading) !important;">🛒 Current Cart Items</h3>
+                <p style="color: var(--text-muted); font-size: 0.88rem; margin: 0;">Items currently pending in your active shopping bag.</p>
+            </div>
+            <a href="{% url 'cart' %}" style="font-size: 0.88rem; font-weight: 800; color: var(--accent-color); text-decoration: none;">View Full Cart ↗</a>
+        </div>
+
+        {% if cart_products %}
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+                <thead>
+                    <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-muted); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.8px;">
+                        <th style="padding: 12px 16px;">Product</th>
+                        <th style="padding: 12px 16px;">Quantity</th>
+                        <th style="padding: 12px 16px;">Unit Price</th>
+                        <th style="padding: 12px 16px;">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for citem in cart_products %}
+                    <tr style="border-bottom: 1px solid var(--border-color);">
+                        <td style="padding: 16px; font-weight: 700; color: var(--text-dark); display: flex; align-items: center; gap: 12px;">
+                            <img src="{{ citem.image_url }}" alt="{{ citem.title }}" style="width: 44px; height: 44px; border-radius: 8px; object-fit: cover;">
+                            <span>{{ citem.title }}</span>
+                        </td>
+                        <td style="padding: 16px; font-weight: 700; color: var(--text-dark);">Qty: {{ citem.quantity }}</td>
+                        <td style="padding: 16px; font-weight: 700; color: var(--accent-color);">₹{{ citem.price }}</td>
+                        <td style="padding: 16px; font-weight: 900; color: var(--text-dark);">₹{{ citem.subtotal }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div style="text-align: center; padding: 28px; color: var(--text-muted);">
+            <p style="margin-bottom: 12px;">Your shopping bag is currently empty.</p>
+            <a href="{% url 'men' %}" style="display: inline-block; font-size: 0.88rem; font-weight: 800; color: var(--accent-color); text-decoration: none;">Browse Catalog &rarr;</a>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Placed Order Details Section -->
+    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 28px; box-shadow: 0 4px 18px rgba(0,0,0,0.03);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; padding-bottom: 14px; border-bottom: 1px solid var(--border-color);">
+            <div>
+                <h3 style="font-size: 1.3rem; font-weight: 900; color: var(--text-dark); margin-bottom: 4px; font-family: var(--font-heading) !important;">📦 My Orders List</h3>
+                <p style="color: var(--text-muted); font-size: 0.88rem; margin: 0;">Track your completed purchases, order status, and payment summary.</p>
+            </div>
+            <span style="font-size: 0.85rem; font-weight: 800; background: rgba(37, 99, 235, 0.1); color: var(--accent-color); padding: 6px 14px; border-radius: 12px;">
+                {{ total_orders_count }} Order{{ total_orders_count|pluralize }} Recorded
+            </span>
+        </div>
+
+        {% if orders %}
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+                <thead>
+                    <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-muted); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.8px;">
+                        <th style="padding: 14px 16px;">Order ID</th>
+                        <th style="padding: 14px 16px;">Items Purchased</th>
+                        <th style="padding: 14px 16px;">Payment Method</th>
+                        <th style="padding: 14px 16px;">Date & Time</th>
+                        <th style="padding: 14px 16px;">Total Amount</th>
+                        <th style="padding: 14px 16px;">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr style="border-bottom: 1px solid var(--border-color); transition: background 0.2s ease;">
+                        <td style="padding: 18px 16px; font-weight: 800; color: var(--accent-color);">
+                            {{ order.order_id|default:order.id }}
+                        </td>
+                        <td style="padding: 18px 16px; font-weight: 700; color: var(--text-dark);">
+                            {{ order.items_title|default:order.items_badges|default:"KinThread Fashion Apparel" }}
+                        </td>
+                        <td style="padding: 18px 16px; font-weight: 700; font-size: 0.9rem; color: var(--text-dark);">
+                            {{ order.payment_method|default:"🟣 PhonePe UPI" }}
+                        </td>
+                        <td style="padding: 18px 16px; color: var(--text-muted); font-size: 0.88rem;">
+                            {{ order.created_at }}
+                        </td>
+                        <td style="padding: 18px 16px; font-weight: 900; color: var(--text-dark); font-size: 1.05rem;">
+                            ₹{{ order.total_amount }}
+                        </td>
+                        <td style="padding: 18px 16px;">
+                            <span style="{{ order.status_badge|default:'background: rgba(22, 163, 74, 0.12); color: #16a34a; border: 1px solid rgba(22, 163, 74, 0.3);' }} padding: 5px 12px; border-radius: 12px; font-weight: 800; font-size: 0.8rem; display: inline-block;">
+                                {{ order.status|default:"Delivered" }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div style="text-align: center; padding: 48px; color: var(--text-muted);">
+            <div style="font-size: 3rem; margin-bottom: 12px;">📦</div>
+            <h4 style="font-size: 1.2rem; font-weight: 800; color: var(--text-dark); margin-bottom: 8px;">No Orders Placed Yet</h4>
+            <p style="font-size: 0.92rem; max-width: 440px; margin: 0 auto 20px auto; line-height: 1.5; color: var(--text-muted);">Once you place an order using PhonePe, Google Pay, or UPI checkout, your completed order history will appear here.</p>
+            <a href="{% url 'men' %}" class="btn-primary" style="display: inline-block; width: auto; padding: 12px 28px; text-decoration: none; font-weight: 800; border-radius: 8px;">Start Shopping &rarr;</a>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+
+<!-- Interactive Edit Profile Modal -->
+<div id="editProfileModal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.78); backdrop-filter: blur(6px); z-index: 99999; align-items: center; justify-content: center; padding: 20px;">
+    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; max-width: 500px; width: 100%; padding: 28px; box-shadow: 0 20px 50px rgba(0,0,0,0.35); position: relative; text-align: left;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 16px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 1.4rem;">✏️</span>
+                <div>
+                    <h3 style="font-size: 1.2rem; font-weight: 900; color: var(--text-dark); margin: 0;">Update Customer Profile</h3>
+                    <span style="font-size: 0.78rem; color: var(--text-muted);">Saves changes directly to database</span>
+                </div>
+            </div>
+            <button type="button" onclick="closeEditProfileModal()" style="background: transparent; border: none; font-size: 1.4rem; color: var(--text-muted); cursor: pointer;">✕</button>
+        </div>
+
+        <form method="POST" action="{% url 'user_profile' %}" style="display: flex; flex-direction: column; gap: 16px;">
+            {% csrf_token %}
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div>
+                    <label style="display: block; font-weight: 700; font-size: 0.85rem; color: var(--text-dark); margin-bottom: 6px;">First Name</label>
+                    <input type="text" name="first_name" value="{{ user_info.first_name }}" required style="width: 100%; padding: 10px 14px; border: 1.5px solid var(--border-color); border-radius: 8px; background: var(--bg-main); color: var(--text-dark); font-weight: 600;">
+                </div>
+                <div>
+                    <label style="display: block; font-weight: 700; font-size: 0.85rem; color: var(--text-dark); margin-bottom: 6px;">Last Name</label>
+                    <input type="text" name="last_name" value="{{ user_info.last_name }}" style="width: 100%; padding: 10px 14px; border: 1.5px solid var(--border-color); border-radius: 8px; background: var(--bg-main); color: var(--text-dark); font-weight: 600;">
+                </div>
+            </div>
+
+            <div>
+                <label style="display: block; font-weight: 700; font-size: 0.85rem; color: var(--text-dark); margin-bottom: 6px;">Email Address</label>
+                <input type="email" name="email" value="{{ user_info.email }}" required style="width: 100%; padding: 10px 14px; border: 1.5px solid var(--border-color); border-radius: 8px; background: var(--bg-main); color: var(--text-dark); font-weight: 600;">
+            </div>
+
+            <div>
+                <label style="display: block; font-weight: 700; font-size: 0.85rem; color: var(--text-dark); margin-bottom: 6px;">Mobile / Phone Number</label>
+                <input type="text" name="phone_number" value="{{ user_info.phone }}" placeholder="+91 9876543210" style="width: 100%; padding: 10px 14px; border: 1.5px solid var(--border-color); border-radius: 8px; background: var(--bg-main); color: var(--text-dark); font-weight: 600;">
+            </div>
+
+            <div>
+                <label style="display: block; font-weight: 700; font-size: 0.85rem; color: var(--text-dark); margin-bottom: 6px;">Shipping Street Address</label>
+                <input type="text" name="address" value="{{ user_info.address }}" placeholder="Street Name, House / Suite No." style="width: 100%; padding: 10px 14px; border: 1.5px solid var(--border-color); border-radius: 8px; background: var(--bg-main); color: var(--text-dark); font-weight: 600;">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 12px;">
+                <div>
+                    <label style="display: block; font-weight: 700; font-size: 0.85rem; color: var(--text-dark); margin-bottom: 6px;">City & State</label>
+                    <input type="text" name="city" value="{{ user_info.city }}" placeholder="City, State" style="width: 100%; padding: 10px 14px; border: 1.5px solid var(--border-color); border-radius: 8px; background: var(--bg-main); color: var(--text-dark); font-weight: 600;">
+                </div>
+                <div>
+                    <label style="display: block; font-weight: 700; font-size: 0.85rem; color: var(--text-dark); margin-bottom: 6px;">Pincode</label>
+                    <input type="text" name="pincode" value="{{ user_info.pincode }}" placeholder="560001" style="width: 100%; padding: 10px 14px; border: 1.5px solid var(--border-color); border-radius: 8px; background: var(--bg-main); color: var(--text-dark); font-weight: 600;">
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 12px; margin-top: 10px;">
+                <button type="button" onclick="closeEditProfileModal()" style="flex: 1; padding: 12px; background: transparent; border: 1px solid var(--border-color); color: var(--text-dark); border-radius: 8px; font-weight: 700; cursor: pointer;">Cancel</button>
+                <button type="submit" style="flex: 2; padding: 12px; background: var(--accent-color); color: white; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);">
+                    💾 Save to Database &rarr;
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openEditProfileModal() {
+        const modal = document.getElementById('editProfileModal');
+        if (modal) modal.style.display = 'flex';
+    }
+    function closeEditProfileModal() {
+        const modal = document.getElementById('editProfileModal');
+        if (modal) modal.style.display = 'none';
+    }
+</script>
+{% endblock %}

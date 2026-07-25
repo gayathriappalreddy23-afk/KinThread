@@ -3,13 +3,109 @@
 
 {% block page_content %}
 <div class="dashboard-shell">
-    <section class="hero-banner category-hero" style="background: linear-gradient(135deg, #14532d 0%, #166534 60%, #4d7c0f 100%);">
-        <div class="hero-content">
-            <p class="eyebrow" style="color: #86efac;">Statement Accents & Daily Luxury</p>
-            <h2>{{ page_title }}</h2>
-            <p>{{ page_intro }}</p>
+    <!-- Accessories Auto-Scrolling Hero Banner Carousel (5 High-Res Clear Images, 460px Height) -->
+    <div class="hero-carousel-container" style="position: relative; border-radius: var(--radius-md); overflow: hidden; margin-bottom: 28px; box-shadow: 0 12px 32px rgba(0,0,0,0.12);">
+        <div id="accCarousel" class="carousel-slides-wrapper" style="display: flex; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);">
+            
+            <!-- Slide 1 -->
+            <div class="carousel-slide" style="min-width: 100%; position: relative; height: 460px; background: linear-gradient(90deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.45) 60%, transparent 100%), url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1400&q=85') center/cover no-repeat; display: flex; align-items: center; padding: 48px; color: white;">
+                <div style="max-width: 580px;">
+                    <span style="background: #16a34a; color: white; font-weight: 800; font-size: 0.8rem; padding: 5px 14px; border-radius: 12px; text-transform: uppercase; letter-spacing: 1px;">TIMELESS CRAFTSMANSHIP</span>
+                    <h2 style="font-family: var(--font-heading) !important; font-size: 2.6rem; font-weight: 900; margin: 12px 0; line-height: 1.2;">Automated Chronograph Wristwatches</h2>
+                    <p style="color: #cbd5e1; font-size: 1.05rem; margin-bottom: 24px; line-height: 1.6;">Precision timepiece engineering, sapphire crystal glass, and Italian leather straps.</p>
+                    <a href="#acc-grid" style="display: inline-block; padding: 14px 32px; background: #16a34a; color: white; border-radius: 8px; font-weight: 800; text-decoration: none;">Explore Watches &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-slide" style="min-width: 100%; position: relative; height: 460px; background: linear-gradient(90deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.45) 60%, transparent 100%), url('https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1400&q=85') center/cover no-repeat; display: flex; align-items: center; padding: 48px; color: white;">
+                <div style="max-width: 580px;">
+                    <span style="background: var(--accent-color); color: white; font-weight: 800; font-size: 0.8rem; padding: 5px 14px; border-radius: 12px; text-transform: uppercase; letter-spacing: 1px;">LEATHER GOODS</span>
+                    <h2 style="font-family: var(--font-heading) !important; font-size: 2.6rem; font-weight: 900; margin: 12px 0; line-height: 1.2;">Handcrafted Leather Totes & Handbags</h2>
+                    <p style="color: #cbd5e1; font-size: 1.05rem; margin-bottom: 24px; line-height: 1.6;">Full-grain genuine leather handbags, travel duffels, and minimalist slim wallets.</p>
+                    <a href="#acc-grid" style="display: inline-block; padding: 14px 32px; background: var(--accent-color); color: white; border-radius: 8px; font-weight: 800; text-decoration: none;">View Handbags &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-slide" style="min-width: 100%; position: relative; height: 460px; background: linear-gradient(90deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.45) 60%, transparent 100%), url('https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=1400&q=85') center/cover no-repeat; display: flex; align-items: center; padding: 48px; color: white;">
+                <div style="max-width: 580px;">
+                    <span style="background: #0284c7; color: white; font-weight: 800; font-size: 0.8rem; padding: 5px 14px; border-radius: 12px; text-transform: uppercase; letter-spacing: 1px;">LUXURY EYEWEAR</span>
+                    <h2 style="font-family: var(--font-heading) !important; font-size: 2.6rem; font-weight: 900; margin: 12px 0; line-height: 1.2;">UV400 Polarized Designer Sunglasses</h2>
+                    <p style="color: #cbd5e1; font-size: 1.05rem; margin-bottom: 24px; line-height: 1.6;">Precision UV protection aviators, acetate frames, and statement summer eyewear.</p>
+                    <a href="#acc-grid" style="display: inline-block; padding: 14px 32px; background: #0284c7; color: white; border-radius: 8px; font-weight: 800; text-decoration: none;">View Eyewear &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="carousel-slide" style="min-width: 100%; position: relative; height: 460px; background: linear-gradient(90deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.45) 60%, transparent 100%), url('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1400&q=85') center/cover no-repeat; display: flex; align-items: center; padding: 48px; color: white;">
+                <div style="max-width: 580px;">
+                    <span style="background: #f59e0b; color: white; font-weight: 800; font-size: 0.8rem; padding: 5px 14px; border-radius: 12px; text-transform: uppercase; letter-spacing: 1px;">FINE JEWELRY</span>
+                    <h2 style="font-family: var(--font-heading) !important; font-size: 2.6rem; font-weight: 900; margin: 12px 0; line-height: 1.2;">Kundan & Gold-Plated Statement Sets</h2>
+                    <p style="color: #cbd5e1; font-size: 1.05rem; margin-bottom: 24px; line-height: 1.6;">Hand-cut Kundan necklaces, bridal chokers, and festive pearl earrings.</p>
+                    <a href="#acc-grid" style="display: inline-block; padding: 14px 32px; background: #f59e0b; color: white; border-radius: 8px; font-weight: 800; text-decoration: none;">Shop Jewelry &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Slide 5 -->
+            <div class="carousel-slide" style="min-width: 100%; position: relative; height: 460px; background: linear-gradient(90deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.45) 60%, transparent 100%), url('https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1400&q=85') center/cover no-repeat; display: flex; align-items: center; padding: 48px; color: white;">
+                <div style="max-width: 580px;">
+                    <span style="background: #e11d48; color: white; font-weight: 800; font-size: 0.8rem; padding: 5px 14px; border-radius: 12px; text-transform: uppercase; letter-spacing: 1px;">ESSENTIAL ACCENTS</span>
+                    <h2 style="font-family: var(--font-heading) !important; font-size: 2.6rem; font-weight: 900; margin: 12px 0; line-height: 1.2;">Italian Leather Belts & Wallets</h2>
+                    <p style="color: #cbd5e1; font-size: 1.05rem; margin-bottom: 24px; line-height: 1.6;">Reversible genuine leather dress belts, RFID-blocking cardholders, and accessories.</p>
+                    <a href="#acc-grid" style="display: inline-block; padding: 14px 32px; background: #e11d48; color: white; border-radius: 8px; font-weight: 800; text-decoration: none;">Explore Belts &rarr;</a>
+                </div>
+            </div>
+
         </div>
-    </section>
+
+        <!-- Carousel Dots Indicator (5 Dots) -->
+        <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10;">
+            <span class="a-dot active" onclick="setAccSlide(0)" style="width: 12px; height: 12px; border-radius: 50%; background: white; opacity: 0.9; cursor: pointer; transition: all 0.3s ease;"></span>
+            <span class="a-dot" onclick="setAccSlide(1)" style="width: 12px; height: 12px; border-radius: 50%; background: white; opacity: 0.4; cursor: pointer; transition: all 0.3s ease;"></span>
+            <span class="a-dot" onclick="setAccSlide(2)" style="width: 12px; height: 12px; border-radius: 50%; background: white; opacity: 0.4; cursor: pointer; transition: all 0.3s ease;"></span>
+            <span class="a-dot" onclick="setAccSlide(3)" style="width: 12px; height: 12px; border-radius: 50%; background: white; opacity: 0.4; cursor: pointer; transition: all 0.3s ease;"></span>
+            <span class="a-dot" onclick="setAccSlide(4)" style="width: 12px; height: 12px; border-radius: 50%; background: white; opacity: 0.4; cursor: pointer; transition: all 0.3s ease;"></span>
+        </div>
+    </div>
+
+    <!-- Feature Highlights Bar -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px 24px; margin-bottom: 32px;">
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; font-weight: 700; color: var(--text-dark);">
+            <span style="font-size: 1.4rem;">⌚</span> 2-Year International Warranty
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; font-weight: 700; color: var(--text-dark);">
+            <span style="font-size: 1.4rem;">👜</span> 100% Genuine Full-Grain Leather
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; font-weight: 700; color: var(--text-dark);">
+            <span style="font-size: 1.4rem;">🚚</span> Express 24-Hour Metro Delivery
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; font-weight: 700; color: var(--text-dark);">
+            <span style="font-size: 1.4rem;">💳</span> PhonePe / UPI Instant Checkout
+        </div>
+    </div>
+
+    <script>
+        let currentAccSlide = 0;
+        const accWrapper = document.getElementById('accCarousel');
+        const accDots = document.querySelectorAll('.a-dot');
+
+        function setAccSlide(index) {
+            currentAccSlide = index;
+            if (accWrapper) {
+                accWrapper.style.transform = `translateX(-${index * 100}%)`;
+            }
+            accDots.forEach((dot, idx) => {
+                dot.style.opacity = idx === index ? '0.9' : '0.4';
+                dot.style.transform = idx === index ? 'scale(1.2)' : 'scale(1)';
+            });
+        }
+
+        setInterval(() => {
+            currentAccSlide = (currentAccSlide + 1) % 5;
+            setAccSlide(currentAccSlide);
+        }, 3600);
+    </script>
 
     <section class="home-section">
         <form method="get" class="catalog-toolbar">
@@ -24,9 +120,9 @@
                         <option value="{{ b.slug }}" {% if b.slug == brand %}selected{% endif %}>{{ b.name }}</option>
                     {% endfor %}
                 </select>
-                <input type="number" step="0.01" name="min_price" value="{{ min_price }}" placeholder="Min $">
-                <input type="number" step="0.01" name="max_price" value="{{ max_price }}" placeholder="Max $">
-                <button type="submit" class="btn-primary compact">Filter</button>
+                <input type="number" step="0.01" name="min_price" value="{{ min_price }}" placeholder="Min ₹">
+                <input type="number" step="0.01" name="max_price" value="{{ max_price }}" placeholder="Max ₹">
+                <button type="submit">Filter</button>
             </div>
         </form>
 
@@ -39,18 +135,25 @@
                     {% elif product.image_url %}
                         <img src="{{ product.image_url }}" alt="{{ product.title }}">
                     {% else %}
-                        <img src="{% static 'images/carousel_3.png' %}" alt="{{ product.title }}">
+                        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=80" alt="{{ product.title }}">
                     {% endif %}
-                    <a href="{% url 'add-to-cart' product.id %}" class="btn-add-cart">Add to Cart</a>
                 </div>
                 <div class="product-info">
-                    <h4>{{ product.title }}</h4>
-                    <p class="price">${{ product.price }}</p>
-                    <p class="meta">{{ product.brand.name|default:'KinThread' }}</p>
+                    <h4 style="font-size: 1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 6px;">{{ product.title }}</h4>
+                    <p class="meta" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">{{ product.brand.name|default:'KinThread' }}</p>
+                    <p class="price">
+                        {% if product.discount_price %}
+                            <span class="original-price">₹{{ product.price }}</span>
+                            <span>₹{{ product.discount_price }}</span>
+                        {% else %}
+                            <span>₹{{ product.price }}</span>
+                        {% endif %}
+                    </p>
+                    <a href="{% url 'add-to-cart' product.id %}" class="btn-add-cart">🛒 Add to Cart</a>
                 </div>
             </article>
             {% empty %}
-            <div class="empty-state">
+            <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
                 <h3>No accessories found</h3>
                 <p>Try clearing filters or search for another item.</p>
             </div>
@@ -59,4 +162,5 @@
     </section>
 </div>
 {% endblock %}
+
 

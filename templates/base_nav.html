@@ -1,74 +1,135 @@
-{% extends 'base.html' %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}KinThread{% endblock %}</title>
+    <!-- Importing Cinzel, Inter & Playfair Display Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+<body>
 
-{% block content %}
-<header class="main-header">
-    <div class="header-top">
-        <div class="logo">
-            <a href="{% url 'dashboard' %}">KinThread</a>
-        </div>
-        <form class="search-bar" action="{% url 'search-products' %}" method="get">
-            <input type="text" name="q" placeholder="Search for products, brands and more...">
-            <button class="search-btn" type="submit">🔍</button>
-        </form>
-        <div class="header-icons">
-            <a href="#" class="icon-link" title="Wishlist">❤️</a>
-            <a href="{% url 'cart' %}" class="icon-link" title="Cart">🛒</a>
-            <div class="user-menu">
-                <a href="#" class="icon-link" title="Profile">👤 {{ user.first_name|default:user.username }}</a>
-                <a href="{% url 'logout' %}" class="logout-link" title="Logout">Logout</a>
-            </div>
-        </div>
-    </div>
-    <nav class="main-nav">
-        <ul>
-            <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' or request.resolver_match.url_name == 'dashboard' %}active{% endif %}">Home</a></li>
-            <li><a href="{% url 'men' %}" class="{% if request.resolver_match.url_name == 'men' %}active{% endif %}">Men</a></li>
-            <li><a href="{% url 'women' %}" class="{% if request.resolver_match.url_name == 'women' %}active{% endif %}">Women</a></li>
-            <li><a href="{% url 'accessories' %}" class="{% if request.resolver_match.url_name == 'accessories' %}active{% endif %}">Accessories</a></li>
-            <li><a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a></li>
-            <li><a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a></li>
-        </ul>
+<!-- 2. STRUCTURAL PERSISTENT CONTAINER -->
+<div class="dashboard-wrapper">
+    
+    <!-- Fixes messy navigation columns -->
+    <nav class="sidebar-navigation" id="sidebar">
+        <h1 class="logo"><a href="{% url 'home' %}" class="logo-link"><span class="logo-kin">Kin</span> <span class="logo-thread">Thread</span></a></h1>
+        
+        <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' or request.resolver_match.url_name == 'dashboard' %}active{% endif %}">🏠 Home</a>
+        <a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">ℹ️ About</a>
+        <a href="{% url 'men' %}" class="{% if request.resolver_match.url_name == 'men' %}active{% endif %}">🤵 Men</a>
+        <a href="{% url 'women' %}" class="{% if request.resolver_match.url_name == 'women' %}active{% endif %}">👗 Women</a>
+        <a href="{% url 'accessories' %}" class="{% if request.resolver_match.url_name == 'accessories' %}active{% endif %}">⌚ Accessories</a>
+        <a href="{% url 'cart' %}" class="{% if request.resolver_match.url_name == 'cart' %}active{% endif %}">🛒 Cart</a>
+        <a href="{% url 'user_profile' %}" class="{% if request.resolver_match.url_name == 'user_profile' %}active{% endif %}">👤 Profile & Activity</a>
+        
+        <div style="flex-grow: 1;"></div>
+        <a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}" style="border-top: 1px solid var(--border-color); border-radius: 0; padding-top: 24px; margin-top: 24px;">Need Help?</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}" onclick="showLogoutModal(event)" class="auth-link logout-link">🚪 Logout ({{ user.username }})</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="auth-link login-link">🔑 Login</a>
+        {% endif %}
     </nav>
-</header>
 
-<main class="page-content">
-    {% block page_content %}{% endblock %}
-</main>
-
-<footer class="main-footer">
-    <div class="footer-grid">
-        <div class="footer-col">
-            <h3>KinThread</h3>
-            <p>Style that brings us together.</p>
-        </div>
-        <div class="footer-col">
-            <h3>Shop</h3>
-            <ul>
-                <li><a href="{% url 'men' %}">Men</a></li>
-                <li><a href="{% url 'women' %}">Women</a></li>
-                <li><a href="{% url 'accessories' %}">Accessories</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h3>Help</h3>
-            <ul>
-                <li><a href="{% url 'contact' %}">Customer Service</a></li>
-                <li><a href="{% url 'about' %}">About Us</a></li>
-                <li><a href="{% url 'search-products' %}">Search Catalog</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h3>Follow Us</h3>
-            <div class="social-icons">
-                <a href="#">IG</a>
-                <a href="#">FB</a>
-                <a href="#">TW</a>
+    <!-- 3. UNIFIED CONTAINER FRAMING -->
+    <main class="main-workspace">
+        
+        <!-- Global Header integrated into the workspace -->
+        <header class="global-header">
+            <button class="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle Navigation">☰</button>
+            <form action="{% url 'search-products' %}" method="GET" class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" name="q" placeholder="Search products, styles, collections..." value="{{ query|default:'' }}">
+            </form>
+            
+            <div class="action-utilities">
+                <button id="theme-toggle" onclick="toggleTheme()" type="button" aria-label="Toggle Mode">
+                    <span id="toggle-icon">🌙</span> <span id="toggle-text">Dark Mode</span>
+                </button>
+                <a href="{% url 'cart' %}" title="Shopping Bag" class="util-icon {% if request.resolver_match.url_name == 'cart' %}active{% endif %}">
+                    🛒<span class="badge">{% if request.session.cart %}{{ request.session.cart|length }}{% else %}0{% endif %}</span>
+                </a>
+                <a href="{% url 'contact' %}" title="Need Help?" class="util-icon {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">❓</a>
+                <a href="{% url 'user_profile' %}" title="User Profile & Activity" class="user-avatar" style="text-decoration: none;">
+                    <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-color) 0%, #1e40af 100%); color: #ffffff; font-size: 1.1rem; font-weight: 900; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.12); font-family: var(--font-heading) !important;">
+                        {% if user.is_authenticated %}{{ user.first_name|default:user.username|first|upper }}{% else %}G{% endif %}
+                    </div>
+                </a>
             </div>
+        </header>
+
+        <div class="page-content-scroll">
+            {% if messages %}
+            <div class="messages-container" style="margin-bottom: 24px;">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" style="padding: 16px 20px; border-radius: 12px; background: rgba(22, 163, 74, 0.12); border: 1.5px solid #16a34a; color: #16a34a; font-weight: 700; font-size: 0.98rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 14px rgba(22, 163, 74, 0.15);">
+                    <span>{{ message }}</span>
+                    <button type="button" onclick="this.parentElement.remove()" style="background: transparent; border: none; font-size: 1.2rem; color: #16a34a; cursor: pointer; padding-left: 12px;">✕</button>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% block page_content %}{% endblock %}
+        </div>
+    </main>
+</div>
+
+<!-- Interactive Logout Confirmation Modal -->
+<div id="logoutConfirmModal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(6px); z-index: 10000; align-items: center; justify-content: center; padding: 20px;">
+    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); max-width: 440px; width: 100%; padding: 32px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); text-align: center;">
+        <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(225, 29, 72, 0.12); color: #e11d48; font-size: 2.2rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px auto;">
+            🚪
+        </div>
+        <h3 style="font-size: 1.4rem; font-weight: 900; color: var(--text-dark); margin-bottom: 10px; font-family: var(--font-heading) !important;">Confirm Account Logout</h3>
+        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 24px;">Are you sure you want to log out of KinThread? You will be redirected to the sign in page.</p>
+        <div style="display: flex; gap: 12px; justify-content: center;">
+            <button type="button" onclick="closeLogoutModal()" style="flex: 1; padding: 12px 20px; background: transparent; border: 1.5px solid var(--border-color); color: var(--text-dark); border-radius: 8px; font-weight: 800; cursor: pointer;">Cancel</button>
+            <a href="{% url 'logout' %}" style="flex: 1; padding: 12px 20px; background: #e11d48; color: white; border-radius: 8px; font-weight: 800; text-decoration: none; text-align: center; box-shadow: 0 4px 14px rgba(225, 29, 72, 0.3);">Yes, Log Out</a>
         </div>
     </div>
-    <div class="footer-bottom">
-        <p>&copy; 2026 KinThread. All rights reserved.</p>
-    </div>
-</footer>
-{% endblock %}
+</div>
+
+<script>
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('active');
+    }
+
+    function showLogoutModal(event) {
+        if (event) event.preventDefault();
+        const modal = document.getElementById('logoutConfirmModal');
+        if (modal) {
+            modal.style.display = 'flex';
+        } else if (confirm("Are you sure you want to log out of KinThread?")) {
+            window.location.href = "{% url 'logout' %}";
+        }
+    }
+
+    function closeLogoutModal() {
+        const modal = document.getElementById('logoutConfirmModal');
+        if (modal) modal.style.display = 'none';
+    }
+
+    window.addEventListener('click', function(e) {
+        const modal = document.getElementById('logoutConfirmModal');
+        if (e.target === modal) {
+            closeLogoutModal();
+        }
+    });
+</script>
+<script src="{% static 'script.js' %}"></script>
+
+</body>
+</html>
+

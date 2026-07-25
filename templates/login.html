@@ -3,30 +3,94 @@
 
 {% block content %}
 <div class="auth-container">
+    <!-- Left Side: Sarees, Traditional Wear, Family & Friends Fashion Images Auto-Scrolling Right to Left -->
     <div class="auth-left">
+        <!-- Floating Live Community Badge Top Left -->
+        <div class="auth-hero-badge-top">
+            <span class="badge-dot"></span>
+            <span>10,000+ Kin Families Styled</span>
+        </div>
+
         <div class="carousel" id="imageCarousel">
-            <div class="carousel-track">
-                <img src="{% static 'images/carousel_1.png' %}" alt="Family fashion" class="carousel-img">
-                <img src="{% static 'images/carousel_2.png' %}" alt="Couple fashion" class="carousel-img">
-                <img src="{% static 'images/carousel_3.png' %}" alt="Friends fashion" class="carousel-img">
-                <img src="{% static 'images/carousel_1.png' %}" alt="Family fashion" class="carousel-img" aria-hidden="true">
-                <img src="{% static 'images/carousel_2.png' %}" alt="Couple fashion" class="carousel-img" aria-hidden="true">
-                <img src="{% static 'images/carousel_3.png' %}" alt="Friends fashion" class="carousel-img" aria-hidden="true">
+            <div class="carousel-track-right-to-left">
+                <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1200&q=80" alt="Royal Saree & Silk Couture" class="carousel-img">
+                <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=1200&q=80" alt="Traditional Indian Family Fashion" class="carousel-img">
+                <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=1200&q=80" alt="Ethnic Designer Wear" class="carousel-img">
+                <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80" alt="Family & Kin Apparel" class="carousel-img">
+                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=80" alt="Best Friends Fashion & Style" class="carousel-img">
+                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=80" alt="Couture Runway Style" class="carousel-img">
+                <!-- Duplicated 6 images for continuous smooth infinite loop -->
+                <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1200&q=80" alt="Royal Saree & Silk Couture" class="carousel-img" aria-hidden="true">
+                <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=1200&q=80" alt="Traditional Indian Family Fashion" class="carousel-img" aria-hidden="true">
+                <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=1200&q=80" alt="Ethnic Designer Wear" class="carousel-img" aria-hidden="true">
+                <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=80" alt="Family & Kin Apparel" class="carousel-img" aria-hidden="true">
+                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=80" alt="Best Friends Fashion & Style" class="carousel-img" aria-hidden="true">
+                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=80" alt="Couture Runway Style" class="carousel-img" aria-hidden="true">
             </div>
         </div>
-        <div class="auth-brand">
-            <h1>KinThread</h1>
-            <p>Style that brings us together.</p>
+
+        <!-- Floating Feature Highlight Card Bottom Left -->
+        <div class="auth-hero-badge-bottom">
+            <div class="badge-title">Curated Ethnic & Western Wear</div>
+            <div class="badge-sub">Handcrafted quality for family, friends, and special moments.</div>
+        </div>
+
+        <!-- Brand Name at Bottom Right Corner -->
+        <div class="auth-brand-bottom-right">
+            <h1><span class="logo-kin">Kin</span><span class="logo-thread">Thread</span></h1>
+            <p>Fashion for Family & Friends</p>
         </div>
     </div>
     
+    <!-- Right Side: Auth Form Container -->
     <div class="auth-right">
         <div class="auth-form-wrapper">
-            <div class="auth-toggle">
-                <button class="toggle-btn active" id="btn-login" onclick="toggleForm('login')">Login</button>
-                <button class="toggle-btn" id="btn-signup" onclick="toggleForm('signup')">Sign Up</button>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; gap: 12px;">
+                <div class="auth-toggle" style="margin-bottom: 0; flex: 1;">
+                    <button class="toggle-btn active" id="btn-login" onclick="toggleForm('login')" type="button">Login</button>
+                    <button class="toggle-btn" id="btn-signup" onclick="toggleForm('signup')" type="button">Sign Up</button>
+                </div>
+                <button id="theme-toggle" onclick="toggleTheme()" type="button" aria-label="Toggle Mode">
+                    <span id="toggle-icon">🌙</span> <span id="toggle-text">Switch to Dark Mode</span>
+                </button>
             </div>
             
+            {% if messages %}
+            <div class="user-friendly-alert-container" style="margin-bottom: 24px;">
+                {% for message in messages %}
+                <div class="kin-alert-card" style="padding: 18px 20px; border-radius: 12px; font-weight: 500; font-size: 0.93rem; line-height: 1.6; {% if 'error' in message.tags or 'danger' in message.tags %}background: rgba(239, 68, 68, 0.09); color: #991b1b; border: 1.5px solid rgba(239, 68, 68, 0.3);{% else %}background: rgba(16, 185, 129, 0.09); color: #065f46; border: 1.5px solid rgba(16, 185, 129, 0.3);{% endif %}">
+                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                        <span style="font-size: 1.3rem; line-height: 1; flex-shrink: 0;">
+                            {% if 'error' in message.tags %}💡{% else %}🎉{% endif %}
+                        </span>
+                        <div style="flex: 1;">
+                            <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; color: inherit;">
+                                {% if 'No registered account' in message.message %}
+                                    Sign Up Required First
+                                {% elif 'Incorrect password' in message.message %}
+                                    Incorrect Login Credentials
+                                {% else %}
+                                    Account Notice
+                                {% endif %}
+                            </div>
+                            <div style="opacity: 0.95; font-size: 0.9rem;">
+                                {{ message }}
+                            </div>
+
+                            {% if 'No registered account' in message.message %}
+                            <div style="margin-top: 12px;">
+                                <button type="button" onclick="toggleForm('signup')" style="padding: 8px 16px; background: var(--accent-color); color: #ffffff; border: none; border-radius: 6px; font-weight: 800; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 3px 10px rgba(37, 99, 235, 0.25);">
+                                    <span>✨ Sign Up First &rarr;</span>
+                                </button>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
             <!-- Login Form -->
             <div class="form-container active-form" id="login-form">
                 <h2>Welcome Back</h2>
@@ -35,13 +99,27 @@
                     {% csrf_token %}
                     <div class="input-group">
                         <label for="login-email">Email Address</label>
-                        <input type="email" id="login-email" name="email" required placeholder="name@example.com">
+                        <input type="email" id="login-email" name="email" required placeholder="name@example.com" autocomplete="email">
                     </div>
                     <div class="input-group">
                         <label for="login-password">Password</label>
-                        <input type="password" id="login-password" name="password" required placeholder="••••••••">
+                        <div class="password-input-wrapper">
+                            <input type="password" id="login-password" name="password" required placeholder="••••••••" autocomplete="current-password">
+                            <button type="button" class="toggle-password-btn" onclick="togglePasswordVisibility('login-password', this)" aria-label="Toggle password visibility">
+                                <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                <svg class="eye-off-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                            </button>
+                        </div>
                     </div>
-                    <p id="login-error-message" class="form-error" style="display:none; margin-bottom:12px; color:#c0392b; font-size:0.95rem;"></p>
+
+                    <div class="remember-forgot-row">
+                        <label class="remember-me-label">
+                            <input type="checkbox" name="remember_me" checked> Remember me
+                        </label>
+                        <a href="javascript:void(0)" onclick="alert('Password reset link will be sent to your registered email.')" class="forgot-link">Forgot password?</a>
+                    </div>
+
+                    <p id="login-error-message" class="form-error" style="display:none; margin-bottom:12px; color:#c0392b; font-size:0.95rem; font-weight:500;"></p>
                     <button type="submit" class="btn-primary">Log In</button>
                 </form>
                 
@@ -50,12 +128,9 @@
                 </div>
                 
                 <div class="social-login">
-                    <a href="{% url 'google_login' %}" class="btn-social" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:8px;">
-                        <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="Google" width="20"> Continue with Google
+                    <a href="{% url 'google_login' %}" class="btn-social btn-google-social">
+                        <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="Google" width="22"> Continue with Google
                     </a>
-                    <button class="btn-social" type="button">
-                        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" alt="Facebook" width="20"> Facebook
-                    </button>
                 </div>
             </div>
 
@@ -68,26 +143,38 @@
                     <div class="form-row">
                         <div class="input-group">
                             <label for="first-name">First Name</label>
-                            <input type="text" id="first-name" name="first_name" required placeholder="John">
+                            <input type="text" id="first-name" name="first_name" required placeholder="John" autocomplete="given-name">
                         </div>
                         <div class="input-group">
                             <label for="last-name">Last Name</label>
-                            <input type="text" id="last-name" name="last_name" required placeholder="Doe">
+                            <input type="text" id="last-name" name="last_name" required placeholder="Doe" autocomplete="family-name">
                         </div>
                     </div>
                     <div class="input-group">
                         <label for="signup-email">Enter your Email</label>
-                        <input type="email" id="signup-email" name="email" required placeholder="name@example.com">
+                        <input type="email" id="signup-email" name="email" required placeholder="name@example.com" autocomplete="email">
                     </div>
                     <div class="input-group">
                         <label for="signup-password">Password</label>
-                        <input type="password" id="signup-password" name="password" required placeholder="Create a password">
+                        <div class="password-input-wrapper">
+                            <input type="password" id="signup-password" name="password" required placeholder="Create a password" autocomplete="new-password">
+                            <button type="button" class="toggle-password-btn" onclick="togglePasswordVisibility('signup-password', this)" aria-label="Toggle password visibility">
+                                <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                <svg class="eye-off-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                            </button>
+                        </div>
                     </div>
                     <div class="input-group">
                         <label for="confirm-password">Confirm Password</label>
-                        <input type="password" id="confirm-password" name="confirm_password" required placeholder="Confirm your password">
+                        <div class="password-input-wrapper">
+                            <input type="password" id="confirm-password" name="confirm_password" required placeholder="Confirm your password" autocomplete="new-password">
+                            <button type="button" class="toggle-password-btn" onclick="togglePasswordVisibility('confirm-password', this)" aria-label="Toggle password visibility">
+                                <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                <svg class="eye-off-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                            </button>
+                        </div>
                     </div>
-                    <p id="signup-error-message" class="form-error" style="display:none; margin-bottom:12px; color:#c0392b; font-size:0.95rem;"></p>
+                    <p id="signup-error-message" class="form-error" style="display:none; margin-bottom:12px; color:#c0392b; font-size:0.95rem; font-weight:500;"></p>
                     <button type="submit" class="btn-primary">Create an Account</button>
                 </form>
                 
@@ -96,12 +183,9 @@
                 </div>
                 
                 <div class="social-login">
-                    <a href="{% url 'google_login' %}" class="btn-social" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:8px;">
-                        <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="Google" width="20"> Continue with Google
+                    <a href="{% url 'google_login' %}" class="btn-social btn-google-social">
+                        <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="Google" width="22"> Continue with Google
                     </a>
-                    <button class="btn-social" type="button">
-                        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" alt="Facebook" width="20"> Facebook
-                    </button>
                 </div>
             </div>
 
@@ -132,6 +216,24 @@
             
             btnSignup.classList.remove('active');
             btnLogin.classList.add('active');
+        }
+    }
+
+    function togglePasswordVisibility(fieldId, btnElement) {
+        const input = document.getElementById(fieldId);
+        if (!input) return;
+
+        const eyeIcon = btnElement.querySelector('.eye-icon');
+        const eyeOffIcon = btnElement.querySelector('.eye-off-icon');
+
+        if (input.type === 'password') {
+            input.type = 'text';
+            if (eyeIcon) eyeIcon.style.display = 'none';
+            if (eyeOffIcon) eyeOffIcon.style.display = 'block';
+        } else {
+            input.type = 'password';
+            if (eyeIcon) eyeIcon.style.display = 'block';
+            if (eyeOffIcon) eyeOffIcon.style.display = 'none';
         }
     }
 
@@ -170,6 +272,12 @@
 
             const password = passwordInput.value;
             const confirmPassword = confirmPasswordInput.value;
+
+            if (password.length < 6) {
+                event.preventDefault();
+                showError(signupErrorMessage, 'Password must be at least 6 characters long.');
+                return false;
+            }
 
             if (password !== confirmPassword) {
                 event.preventDefault();
